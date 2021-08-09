@@ -5,7 +5,7 @@ IF YOU WANT TO USE/COPY/MODIFY/REPRODUCE/RE-DISTRIBUTE THIS PROGRAM, YOU MUST IN
 
 Author Name: Kiet Pham
 Author Contact: kiet.riley2005@gmail.com
-Discord: CaptainVietnam6#0001
+Discord: CaptainVietnam6#9842
 Discord Server: https://discord.gg/3z76p8H5yj
 GitHub: https://github.com/CaptainVietnam6
 Instagram: @itz_kietttttttttt
@@ -84,19 +84,19 @@ for filename in os.listdir("./cogs"):
         client.load_extension(f"cogs.{filename[:-3]}")
 
 
-#ALERTS WHEN MagBot IS READY AND JOINS VC ON READY
+#ALERTS WHEN MagmaBot IS READY AND JOINS VC ON READY
 @client.event
 async def on_ready():
     await client.change_presence(status = discord.Status.online, activity = discord.Game("Programmed by Kiet P. in Python 3.8.2"))
     await asyncio.sleep(float(1.5))
-    print("MagBot is ready and online")
+    print("MagmaBot is ready and online")
 
     #notifs for CV6's Playground server
     channel = client.get_channel(816179144961818634)
-    await channel.send("MagBot is online and ready")
+    await channel.send("MagmaBot is online and ready")
     #notifs for Magma Robotics Server
     channel = client.get_channel(873124359353548840)
-    await channel.send("MagBot is online and ready")
+    await channel.send("MagmaBot is online and ready")
 
     #joins vc on ready
     channel = client.get_channel(873093416710463511)
@@ -142,10 +142,11 @@ async def _chat_clear(ctx, amount = 100):
 
 #MEMBER JOIN WELCOME
 @client.event
-async def on_member_join(member):
+async def on_member_join(member, ctx):
     channel = client.get_channel(873093415976464417)
     channel2 = client.get_channel(873124359353548840)
     mention = member.mention
+    author_name = ctx.author.display_name
 
     #welcomes people in #welcome
     await channel.send(f"{mention} Welcome to the official Team Magma 3008 Robotics discord server! Please look in <#873093415976464418> for our rules and please change your server nickname to your real name.")
@@ -161,7 +162,7 @@ async def on_member_join(member):
     await channel.send(random.choice(welcome_gifs))
     
     #alerts captain in #bot-status that someone joined
-    await channel2.send(f"<@467451098735837186> {mention} has joined the server")
+    await channel2.send(f"<@467451098735837186> <@392066726281609228>, {author_name} has joined the server")
 
 
 #SEND BOT INVITE LINK COMMAND
@@ -172,6 +173,16 @@ async def _sendbotinvite(ctx):
     await ctx.send("Sending bot's invite link!")
     await asyncio.sleep(float(0.5))
     await ctx.send("https://discord.com/api/oauth2/authorize?client_id=873118823237160991&permissions=0&scope=bot")
+
+
+#SEND BOT GITHUB REPO
+@client.command(aliases = ["github", "githubrepo", "GitHub", "Github", "botgithub"])
+@cooldown(1, 15, BucketType.default)
+async def _sendbotgithub(ctx):
+    print("someone requested the bot's github repo")
+    await ctx.send("Sending the bot's GitHub repository!")
+    await asyncio.sleep(float(0.5))
+    await ctx.send("https://github.com/CaptainVietnam6/MagmaBot")
 
 
 #MEMBER ID GET
@@ -249,7 +260,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Fun/responses related commands list**",
-            description = "**These are commands that relate to fun or responses features of MagBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**",
+            description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -259,7 +270,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Music related commands list**",
-            description = "**These are commands that relate to music features of MagBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nPlay song: **mag play (youtube url)**\nQueue song: **mag queue (youtube url)**\nPause music: **mag pause**\nResume music: **mag resume**\nStop music: **mag stop**\n",
+            description = "**These are commands that relate to music features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nPlay song: **mag play (youtube url)**\nQueue song: **mag queue (youtube url)**\nPause music: **mag pause**\nResume music: **mag resume**\nStop music: **mag stop**\n",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -269,7 +280,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Soundboard related commands list**",
-            description = "**These are commands that relate to voice channel soundboard features of MagBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother guy left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
+            description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother guy left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -279,7 +290,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Game related commands list**",
-            description = "**These are commands that relate to game features of MagBot**\n\n8ball command: **mag 8ball (your question)**\nDice command, returns 1-6: **mag dice**\nRock Paper Scissors: **mag rps (rock, paper, or scissors)**\nMeme command: **mag meme**\n",
+            description = "**These are commands that relate to game features of MagmaBot**\n\n8ball command: **mag 8ball (your question)**\nDice command, returns 1-6: **mag dice**\nRock Paper Scissors: **mag rps (rock, paper, or scissors)**\nMeme command: **mag meme**\n",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -299,7 +310,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Moderation related commands list**",
-            description = "**These are commands that relate to moderation features of MagBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
+            description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -319,7 +330,7 @@ async def _help(ctx):
     await asyncio.sleep(float(0.25))
     await help_mod_dm() #sends mod commands list
     await asyncio.sleep(float(0.25))
-    await ctx.author.send("Above are all the command lists for MagBot, keep in mind this DM feature is still **in beta** and will be subject to changes and updates without further notice")
+    await ctx.author.send("Above are all the command lists for MagmaBot, keep in mind this DM feature is still **in beta** and will be subject to changes and updates without further notice")
     await ctx.send("I sent you a DM with all the command lists")
     
     
@@ -329,7 +340,7 @@ async def _help_fun(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Fun/responses related commands list**",
-        description = "**These are commands that relate to fun or responses features of MagBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**",
+        description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -341,7 +352,7 @@ async def _help_music(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Music related commands list**",
-        description = "**These are commands that relate to music features of MagBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nPlay song: **mag play (youtube url)**\nQueue song: **mag queue (youtube url)**\nPause music: **mag pause**\nResume music: **mag resume**\nStop music: **mag stop**\n",
+        description = "**These are commands that relate to music features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nPlay song: **mag play (youtube url)**\nQueue song: **mag queue (youtube url)**\nPause music: **mag pause**\nResume music: **mag resume**\nStop music: **mag stop**\n",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -353,7 +364,7 @@ async def _help_soundboard(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Soundboard related commands list**",
-        description = "**These are commands that relate to voice channel soundboard features of MagBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother fag left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
+        description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother fag left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -365,7 +376,7 @@ async def _help_game(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Game related commands list**",
-        description = "**These are commands that relate to game features of MagBot**\n\n8ball command: **mag 8ball (your question)**\nDice command, returns 1-6: **mag dice**\nRock Paper Scissors: **mag rps (rock, paper, or scissors)**\nMeme command: **mag meme**\n",
+        description = "**These are commands that relate to game features of MagmaBot**\n\n8ball command: **mag 8ball (your question)**\nDice command, returns 1-6: **mag dice**\nRock Paper Scissors: **mag rps (rock, paper, or scissors)**\nMeme command: **mag meme**\n",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -389,7 +400,7 @@ async def _help_moderation(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Moderation related commands list**",
-        description = "**These are commands that relate to moderation features of MagBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
+        description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -467,11 +478,11 @@ async def _join(ctx):
     if voice and voice.is_connected():
         await voice.move_to(channel)
         await ctx.send("I have joined your voice channel")
-        print("MagBot joined a voice channel")
+        print("MagmaBot joined a voice channel")
     else:
         await channel.connect()
         await ctx.send("I have joined your voice channel")
-        print("MagBot joined a voice channel")
+        print("MagmaBot joined a voice channel")
 
 
 #VOICE CHANNEL LEAVE
@@ -482,7 +493,7 @@ async def _leave(ctx):
 
     if voice and voice.is_connected():
         await voice.disconnect()
-        print(f"MagBot is disconnected from {channel} voice channel")
+        print(f"MagmaBot is disconnected from {channel} voice channel")
         await ctx.send(f"I have left the '{channel}' voice channel")
     else:
         print("command given to leave voice channel but bot wasn't in a voice channel")
@@ -706,7 +717,7 @@ async def _soundboard(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Soundboard commands list**",
-        description = "**These are commands that relate to voice channel soundboard features of MagBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother fag left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
+        description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother fag left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -1107,7 +1118,7 @@ async def _descriptioncommand(ctx):
 #BOT DESCRIPTION COMMAND 
 @client.command(aliases = ["BotDesc", "botdesc", "BotDescription", "Botdescription", "botdescription"])
 async def _botdescription(ctx):
-    await ctx.send("Hi! I am a bot known as MagBot (short for MagmaBot). I am a bot specifically designed and programmed by Kiet P. for the Team Magma 3008 Robotics official discord server using Python and DBscript")
+    await ctx.send("Hi! I am a bot known as MagmaBot. I am a bot specifically designed and programmed by Kiet P. for the Team Magma 3008 Robotics official discord server using Python and DBscript")
 
 
 #GOOGLE COMMAND  
@@ -1122,7 +1133,7 @@ async def _benicetoserverstaff(ctx):
     await ctx.send("https://media.discordapp.net/attachments/709672550707363931/721226547817873519/tenor.gif")
 
 
-#MagBot COUNTS FOR 24 HOURS
+#MagmaBot COUNTS FOR 24 HOURS
 @client.command(aliases = ["count", "Count"])
 @cooldown(1, 86400, BucketType.default)
 async def _count(ctx):
@@ -1132,7 +1143,6 @@ async def _count(ctx):
         await asyncio.sleep(1)
         await ctx.send(mag_count)
         mag_count = mag_count + 1
-
 
 
 #DICTIONARY COMMAND, GIVES YOU THE DEFINITION, SYNONYM, ANTONYM, AND LINK OF THE WORD MENTIONED
@@ -1355,6 +1365,7 @@ async def _hsttime(ctx):
 async def _dm_user_(ctx, member: discord.Member, *, user_message):
     channel = await member.create_dm()
     await channel.send(user_message)
+    await ctx.send("DMed user the message")
 
 
 #RANDOMLY PINGS SOMEONE COMMAND
@@ -1400,7 +1411,7 @@ async def replypog(message):
         await message.channel.send(random.choice(pog_responses))
 
 
-#CAPT GET PINGED ANGR
+#CAPT GET PINGED
 @client.listen("on_message")
 async def captgetpinged(message):
     pinged_reply_messages = ["haha ping", "lol kiet got pinged", "quick reminder that if Kiet doesn't reply in under a minute he's probably offline or sleeping"]
@@ -1415,7 +1426,7 @@ async def captgetpinged(message):
         await message.channel.send(f"{capt_got_pinged_message}")
 
 
-#magbot GETS PINGED ANGR
+#MagmaBot GETS PINGED
 @client.listen("on_message")
 async def maggetpiged(message):
     if message.author.bot:
