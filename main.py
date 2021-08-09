@@ -24,6 +24,7 @@ from discord.ext.commands import cooldown
 from discord.ext.commands import BucketType
 from discord import FFmpegPCMAudio
 
+
 #other important imports for system
 import os
 from os import system
@@ -35,10 +36,19 @@ import shutil
 import asyncio
 import PyDictionary
 from PyDictionary import PyDictionary
+import smtplib
+import ssl
+import json
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 
 #imports from other files
 from keep_alive import keep_alive
 from BOT_TOKEN import BOT_TOKEN
+bot_email_password = os.environ['bot_email_password']
+discord_invite_link = os.environ['discord_inv_link']
+
 
 
 '''REFER TO NOTES TO UNDERSTAND CODE BETTER AND USE IT AS A INDEX TO SEE WHERE CERTAIN COMMAND CLASSES ARE'''
@@ -52,8 +62,9 @@ intents = discord.Intents().all()
 
 
 #PREFIX THE BOT USES
-bot_prefixes = ["mag ", "Mag ", "MAG ", "magma ", "Magma ", "mag", "Mag", "MAG", "magma", "Magma", "/"]
+bot_prefixes = ["mag ", "Mag ", "MAG ", "magma ", "Magma ", "mag", "Mag", "MAG", "magma", "Magma", "/", "m! ", "M! ", "m!", "M!"]
 client = commands.Bot(command_prefix = bot_prefixes, intents = intents)
+client.owner_ids = [597621743070216203, 467451098735837186] 
 
 
 #REMOVES DEFAULT HELP COMMAND
@@ -82,6 +93,10 @@ async def reload(ctx, extension):
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
+
+
+#LOADS JISHAKU LIBRARY
+client.load_extension('jishaku')
 
 
 #ALERTS WHEN MagmaBot IS READY AND JOINS VC ON READY
@@ -165,6 +180,63 @@ async def on_member_join(member, ctx):
     await channel2.send(f"<@467451098735837186> <@392066726281609228>, {author_name} has joined the server")
 
 
+#SENDS NOTIFICATION EMAIL
+@client.listen("on_message")
+async def _notif_email_system(message):
+
+    # GETS DATABASE DATA
+    def load_json(path):
+        with open(path, 'r') as f:
+            dictionary = json.load(f)
+        return dictionary
+    email_dict = load_json("database/contacts.json")
+    receiver_email = email_dict["emails"]
+
+    author_name = message.author.display_name
+    if message.author.bot:
+        return
+    else:
+        if "874082096858136606" in message.content:
+            sender_email = "magmabotnotification@gmail.com" #Sending email
+            #receiver_email = ["2023yanj@kalanihs.org", "2023phamk@kalanihs.org"] #list of receiving emails
+            password = bot_email_password
+
+            for i in range(len(receiver_email)):
+                active_email = receiver_email[i]
+                send_message = MIMEMultipart("alternative")
+                send_message["Subject"] = "Magma 3008 Robotics - Email Notification"
+                send_message["From"] = sender_email
+                send_message["To"] = active_email
+
+                #plain-text to be sent
+                text = f"""\
+Announcement from Discord by {author_name}:
+"{message.content.replace('<@&874082096858136606> ', '')}"
+
+This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server.
+
+
+Link to Discord Server: {discord_invite_link}
+MagmaBot GitHub Repository: https://github.com/CaptainVietnam6/MagmaBot
+Magma Robotics Website: https://www.magmarobotics.com/
+Magma Robotics Instagram: @frcteam3008
+Magma Robotics Facebook: @Team Falcons
+Magma Robotics Twitter: @FRCTeam3008
+Magma Media Email: 3008@imagineworks.com
+"""
+                part1 = MIMEText(text, "plain")
+                send_message.attach(part1)
+
+                #Create secure connection with server and sends email
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, active_email, send_message.as_string())
+
+                #Alerts that the email has been sent in the Terminal
+                print(f"sent emails")
+
+        
 #SEND BOT INVITE LINK COMMAND
 @client.command(aliases = ["botinvite", "BotInvite", "Botinvite", "MBlink", "mblink"])
 @cooldown(1, 60, BucketType.default)
@@ -198,7 +270,7 @@ async def _get_member_id(ctx):
     embed.set_footer(text = f"Requested by {author_name}")
     await ctx.send(embed = embed)
 
-
+ 
 #EMERGENCY BOT STOP COMMAND
 @client.command(aliases = ["exit", "forceexit"])
 @commands.has_any_role("FTC Captain")
