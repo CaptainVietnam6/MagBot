@@ -96,7 +96,7 @@ for filename in os.listdir("./cogs"):
 
 
 #LOADS JISHAKU LIBRARY
-client.load_extension('jishaku')
+#client.load_extension('jishaku')
 
 
 #ALERTS WHEN MagmaBot IS READY AND JOINS VC ON READY
@@ -157,11 +157,10 @@ async def _chat_clear(ctx, amount = 100):
 
 #MEMBER JOIN WELCOME
 @client.event
-async def on_member_join(member, ctx):
+async def on_member_join(member):
     channel = client.get_channel(873093415976464417)
     channel2 = client.get_channel(873124359353548840)
     mention = member.mention
-    author_name = ctx.author.display_name
 
     #welcomes people in #welcome
     await channel.send(f"{mention} Welcome to the official Team Magma 3008 Robotics discord server! Please look in <#873093415976464418> for our rules and please change your server nickname to your real name.")
@@ -177,7 +176,7 @@ async def on_member_join(member, ctx):
     await channel.send(random.choice(welcome_gifs))
     
     #alerts captain in #bot-status that someone joined
-    await channel2.send(f"<@467451098735837186> <@392066726281609228>, {author_name} has joined the server")
+    await channel2.send(f"<@467451098735837186> <@392066726281609228>, {mention} has joined the server")
 
 
 #SENDS NOTIFICATION EMAIL
@@ -201,6 +200,7 @@ async def _notif_email_system(message):
             #receiver_email = ["2023yanj@kalanihs.org", "2023phamk@kalanihs.org"] #list of receiving emails
             password = bot_email_password
 
+            email_num_sent = 1
             for i in range(len(receiver_email)):
                 active_email = receiver_email[i]
                 send_message = MIMEMultipart("alternative")
@@ -212,6 +212,10 @@ async def _notif_email_system(message):
                 text = f"""\
 Announcement from Discord by {author_name}:
 "{message.content.replace('<@&874082096858136606> ', '')}"
+
+
+
+
 
 This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server.
 
@@ -234,8 +238,10 @@ Magma Media Email: 3008@imagineworks.com
                     server.sendmail(sender_email, active_email, send_message.as_string())
 
                 #Alerts that the email has been sent in the Terminal
-                print(f"sent emails")
-
+                print(f"sent email #{email_num_sent}")
+                email_num_sent += 1
+            await message.channel.send("Emails have been sent out.")
+        
         
 #SEND BOT INVITE LINK COMMAND
 @client.command(aliases = ["botinvite", "BotInvite", "Botinvite", "MBlink", "mblink"])
