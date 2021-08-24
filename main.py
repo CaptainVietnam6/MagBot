@@ -338,7 +338,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Fun/responses related commands list**",
-            description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**",
+            description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**\nSomeone say math?: **math**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -378,7 +378,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Emoji related commadns list**",
-            description = "**The commands with an $ have an auto detection feature to detect a certain keyword in your message**\n\nSo fake$: **mag fake**\nX to doubt$: **mag doubt**\nStonks$: **mag stonks**\nSimp pill$: **mag simp**\nUwU*: **mag uwu**\nWat: **mag wat**\nAdmin abooz: **mag abooz**\n60s Timer$: **mag timer**\nThats racist$: **mag racist**\nPolice$: **mag police**\nF-spam emoji: **mag fpsam**\nClap emoji: **mag clap**\nYou tried: **mag youtried**\nPython logo: **mag python**\nPepe pog: **mag pepepog**",
+            description = "**The commands with an $ have an auto detection feature to detect a certain keyword in your message**\n\nSo fake$: **mag fake**\nX to doubt$: **mag doubt**\nStonks$: **mag stonks**\nSimp pill$: **mag simp**\nWat: **mag wat**\nAdmin abooz: **mag abooz**\n60s Timer$: **mag timer**\nThats racist$: **mag racist**\nPolice$: **mag police**\nF-spam emoji: **mag fpsam**\nClap emoji: **mag clap**\nYou tried: **mag youtried**\nPython logo: **mag python**\nPepe pog: **mag pepepog**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -418,7 +418,7 @@ async def _help_fun(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Fun/responses related commands list**",
-        description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**",
+        description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**\nSomeone say math?: **math**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -466,7 +466,7 @@ async def _help_emoji(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Emoji related commadns list**",
-        description = "**The commands with an $ have an auto detection feature to detect a certain keyword in your message**\n\nSo fake$: **mag fake**\nX to doubt$: **mag doubt**\nStonks$: **mag stonks**\nSimp pill$: **mag simp**\nUwU*: **mag uwu**\nWat: **mag wat**\nAdmin abooz: **mag abooz**\n60s Timer$: **mag timer**\nThats racist$: **mag racist**\nPolice$: **mag police**\nF-spam emoji: **mag fpsam**\nClap emoji: **mag clap**\nYou tried: **mag youtried**\nPython logo: **mag python**\nPepe pog: **mag pepepog**",
+        description = "**The commands with an $ have an auto detection feature to detect a certain keyword in your message**\n\nSo fake$: **mag fake**\nX to doubt$: **mag doubt**\nStonks$: **mag stonks**\nSimp pill$: **mag simp**\nWat: **mag wat**\nAdmin abooz: **mag abooz**\n60s Timer$: **mag timer**\nThats racist$: **mag racist**\nPolice$: **mag police**\nF-spam emoji: **mag fpsam**\nClap emoji: **mag clap**\nYou tried: **mag youtried**\nPython logo: **mag python**\nPepe pog: **mag pepepog**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -1422,6 +1422,61 @@ async def _pi_digits_calc(ctx, pi_digits):
         await ctx.send("Error: requested digits cannot be over 2000 (this is to reduce calculation times and load on server)")
 
 
+#CACLULATE TAXES
+@client.command(aliases = ["tax", "Tax", "calctax", "calcTax", "Calctax", "CalcTax"])
+async def _calculate_taxes(ctx, cost, state = "hawaii"):
+    if state == "alabama" or state == "Alabama":
+        tax_rate = float(1.04)
+        tax_output = float(cost) * tax_rate
+    elif state == "alaska" or state == "Alaska":
+        tax_rate = float(1.0)
+        tax_output = float(cost) * tax_rate
+    elif state == "arizona" or state == "Arizona":
+        tax_rate = float(1.056)
+        tax_output = float(cost) * tax_rate
+    elif state == "arkansas" or state == "Arkansas":
+        tax_rate = float(1.065)
+        tax_output = float(cost) * tax_rate
+    elif state == "california" or state == "California":
+        tax_rate = float(1.0725)
+        tax_output = float(cost) * tax_rate
+    elif state == "colorado" or state == "Colorado":
+        tax_rate = float(1.029)
+        tax_output = float(cost) * tax_rate
+    elif state == "connecticut" or state == "Connecticut":
+        tax_rate = float(1.0635)
+        tax_output = float(cost) * tax_rate
+    elif state == "delaware" or state == "Delaware":
+        tax_rate = float(1.0)
+        tax_output = float(cost) * tax_rate
+    elif state == "florida" or state == "Florida":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "georgia" or state == "Georgia":
+        tax_rate = float(1.04)
+        tax_output = float(cost) * tax_rate
+    elif state == "hawaii"  or state == "Hawaii":
+        tax_rate = float(1.04)
+        tax_output = float(cost) * tax_rate
+    elif state == "idaho" or state == "Idaho":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "illinois" or state == "Illinois":
+        tax_rate = float(1.0625)
+        tax_output = float(cost) * tax_rate
+    elif state == "indiana" or state == "Indiana":
+        tax_rate = float(1.07)
+        tax_output = float(cost) * tax_rate
+    
+    embed = discord.Embed(
+        title = f"**Tax rate & total for the state of {state}:**",
+        description = f"Subtotal: {float(cost)}\nTax Rate: {round(float(tax_rate * 100 - 100), 2)}%\nTotal: ${round(float(tax_output), 2)}",
+        color = bot_color
+    )
+    await ctx.reply(embed = embed)
+    #await ctx.reply(f"**Tax rate & total for the state of {state}:**\nSubtotal: {float(cost)}\nTotal: ${round(float(tax_output), 2)}")
+
+
 #TIME COMMAND
 @client.command(aliases = ["time", "Time"])
 async def _hsttime(ctx):
@@ -1460,6 +1515,23 @@ async def _random_ping(ctx):
 @client.command(aliases = ["trains", "Trains", "Train", "train"])
 async def _iliketrains_gif(ctx):
     await ctx.send("https://tenor.com/view/funny-iliketrains-trains-gif-4905803")
+
+
+#AI RESPONSE COMMAND
+@client.listen("on_message")
+async def ai_chatbot(message):
+    if message.author.bot:
+        return
+    else:
+        if "<@873118823237160991>" in message.content or "<@!873118823237160991>" in message.content:
+            if message.channel.id == 877987581860671528 or message.channel.id == 873121282194022450:
+                    print("AI ChatBot command used")
+            else:
+                await message.channel.send("if you're trying to use the AI Chatbot command, please use <#877987581860671528> or <#873121282194022450>")
+                print("someone tried to use the AI ChatBot command out of designated channel")
+                return
+        else:
+            return
 
 
 #BELOW HERE IS THE ALWAYS ACTIVE CLIENT.LISTEN AND ON_MESSAGE COMMANDS
@@ -1504,6 +1576,7 @@ async def captgetpinged(message):
         await message.channel.send(f"{capt_got_pinged_message}")
 
 
+'''
 #MagmaBot GETS PINGED
 @client.listen("on_message")
 async def maggetpiged(message):
@@ -1515,7 +1588,7 @@ async def maggetpiged(message):
     #PC varient
     if "<@!873118823237160991>" in message.content:
         await message.channel.send("why did you ping me lol")
-
+'''
 
 #REPLY GOODNIGHT IF SOMEONE SAYS GOODNIGHT OR SIMILAR
 @client.listen("on_message")
@@ -1614,6 +1687,26 @@ async def _sus_gif_send(message):
             await message.channel.send("https://tenor.com/view/sus-suspect-among-us-gif-18663592")
         if "SUS" in message.content:
             await message.channel.send("https://tenor.com/view/sus-suspect-among-us-gif-18663592")
+
+
+#SOMEONE SAY MATH?
+@client.listen("on_message")
+async def _you_said_math(message):
+    if message.author.bot:
+        return
+    else:
+        if "math" in message.content:
+            await message.channel.send("math?")
+            await asyncio.sleep(float(0.25))
+            await message.channel.send("hey i heard someone mention math?")
+            await asyncio.sleep(float(0.25))
+            await message.channel.send("1+1=3")
+        if "Math" in message.content:
+            await message.channel.send("math?")
+            await asyncio.sleep(float(0.25))
+            await message.channel.send("hey i heard someone mention math?")
+            await asyncio.sleep(float(0.25))
+            await message.channel.send("1+1=3")
 
 
 '''END OF RESPONSES OR RELATED COMMANDS'''
@@ -1715,21 +1808,6 @@ async def _simppills(message):
 @client.command(aliases = ["simp", "Simp"])
 async def _simppillsemojisend(ctx):
     await ctx.send("<:mag_simp_pills:812995814904561695>")
-
-
-#UWU EMOJI
-@client.listen("on_message")
-async def _uwuemoji(message):
-    if message.author.bot:
-        return
-    if "uwu" in message.content:
-        await message.channel.send("uwu daddy smack me harder <:mag_uwu:812995744247447563>")
-    if "UwU" in message.content:
-        await message.channel.send("uwu daddy smack me harder <:mag_uwu:812995744247447563>")
-
-@client.command(aliases = ["uwu", "UwU"])
-async def _uwuemojisend(ctx):
-    await ctx.send("uwu daddy smack me harder <:mag_uwu:812995744247447563>")
 
 
 #WAT EMOJI
