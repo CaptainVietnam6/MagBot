@@ -121,14 +121,14 @@ async def on_ready():
 #RETURNS BOT'S PING IN MILLISECONDS
 @client.command()
 async def ping(ctx):
-    await ctx.send(f"Pong! {client.latency * 1000}ms")
+    await ctx.reply(f"Pong! {client.latency * 1000}ms")
     print(f"ping: {client.latency * 1000}ms")
 
 
 #SERVER COLOR HEX CODE REMINDER THINGY
 @client.command(aliases = ["serhexcode"])
 async def _serverhexcode(ctx):
-    await ctx.send("the server theme hex code is **#ff0000** (this is the official team color)")
+    await ctx.reply("the server theme hex code is **#ff0000** (this is the official team color)")
 
 
 #defines bot color for use in embeds
@@ -250,7 +250,7 @@ async def _sendbotinvite(ctx):
     print("Someone requested bot invite link\n")
     await ctx.send("Sending bot's invite link!")
     await asyncio.sleep(float(0.5))
-    await ctx.send("https://discord.com/api/oauth2/authorize?client_id=873118823237160991&permissions=0&scope=bot")
+    await ctx.reply("https://discord.com/api/oauth2/authorize?client_id=873118823237160991&permissions=0&scope=bot")
 
 
 #SEND BOT GITHUB REPO
@@ -260,7 +260,7 @@ async def _sendbotgithub(ctx):
     print("someone requested the bot's github repo")
     await ctx.send("Sending the bot's GitHub repository!")
     await asyncio.sleep(float(0.5))
-    await ctx.send("https://github.com/CaptainVietnam6/MagmaBot")
+    await ctx.reply("https://github.com/CaptainVietnam6/MagmaBot")
 
 
 #MEMBER ID GET
@@ -274,7 +274,7 @@ async def _get_member_id(ctx):
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
 
  
 #EMERGENCY BOT STOP COMMAND
@@ -497,7 +497,7 @@ async def _help_moderation(ctx):
 #TEST COMMAND
 @client.command(aliases = ["ban", "Ban", "kick", "Kick", "mute", "Mute"])
 async def _repeat(ctx):
-    await ctx.send("shut up.")
+    await ctx.reply("shut up.")
 
 
 #TEST COMMAND 2
@@ -506,7 +506,7 @@ async def _captswebsite(ctx):
     await asyncio.sleep(float(0.1))
     await ctx.send("Sending website...")
     await asyncio.sleep(float(1.5))
-    await ctx.send("https://Basic-Website-7.itzkiettttt.repl.co")
+    await ctx.reply("https://Basic-Website-7.itzkiettttt.repl.co")
 
 
 #TEST TO SEE WTF DISCORD.MEMBER IS
@@ -555,11 +555,11 @@ async def _join(ctx):
 
     if voice and voice.is_connected():
         await voice.move_to(channel)
-        await ctx.send("I have joined your voice channel")
+        await ctx.reply("I have joined your voice channel")
         print("MagmaBot joined a voice channel")
     else:
         await channel.connect()
-        await ctx.send("I have joined your voice channel")
+        await ctx.reply("I have joined your voice channel")
         print("MagmaBot joined a voice channel")
 
 
@@ -572,10 +572,10 @@ async def _leave(ctx):
     if voice and voice.is_connected():
         await voice.disconnect()
         print(f"MagmaBot is disconnected from {channel} voice channel")
-        await ctx.send(f"I have left the '{channel}' voice channel")
+        await ctx.reply(f"I have left the '{channel}' voice channel")
     else:
         print("command given to leave voice channel but bot wasn't in a voice channel")
-        await ctx.send("Invalid command: the bot wasn't in any voice channels")
+        await ctx.reply("Invalid command: the bot wasn't in any voice channels")
 
 
 #VOICE CHANNEL PLAY YOUTUBE URL
@@ -627,7 +627,7 @@ async def _play(ctx, url: str):
             print("Removed an old song file")
     except PermissionError:
         print("Failed to remove song file, song file in use")
-        ctx.send("Error: song file cannot be removed because it's currently playing")
+        ctx.reply("Error: song file cannot be removed because it's currently playing")
         return
 
     #this section is here to remove the old queue folder
@@ -641,7 +641,7 @@ async def _play(ctx, url: str):
         print("No old queue folder")
 
     #rest of play command to play songs
-    await ctx.send("Getting everything ready to play, this may take a bit to load")
+    await ctx.reply("Getting everything ready to play, this may take a bit to load")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     ydl_opts = {
         "format": "bestaudio/best",
@@ -665,7 +665,7 @@ async def _play(ctx, url: str):
     vcvoice.source = discord.PCMVolumeTransformer(vcvoice.source)
     vcvoice.source.value = 0.05
     new_name = audio_file_name.rsplit("-", 2)
-    await ctx.send(f"Now Playing {new_name}")
+    await ctx.reply(f"Now Playing {new_name}")
     print("playing\n")
 
 
@@ -677,10 +677,10 @@ async def _pause(ctx):
     if vcvoice and voice.is_playing():
         vcvoice.pause()
         print("Music paused")
-        await ctx.send("Music paused")
+        await ctx.reply("Music paused")
     else:
         print("Music wasn't playing but there was a request to pause music")
-        await ctx.send("There was no music wasn't playing so i can't pause it")
+        await ctx.reply("There was no music wasn't playing so i can't pause it")
 
 
 #VOICE CHANNEL MUSIC RESUME COMMAND
@@ -691,10 +691,10 @@ async def _resume(ctx):
     if vcvoice and voice.is_paused():
         vcvoice.resume()
         print("Music resumed")
-        await ctx.send("Music has been resumed pogs")
+        await ctx.reply("Music has been resumed pogs")
     else:
         print("Music was not paused but a request was sent for music pause")
-        await ctx.send("Music was playing, can't be resumed if it wasn't paused")
+        await ctx.reply("Music was playing, can't be resumed if it wasn't paused")
 
 
 #VOICE CHANNEL MUSIC STOP COMMAND
@@ -707,10 +707,10 @@ async def _stop(ctx):
     if vcvoice and voice.is_playing():
         vcvoice.stop()
         print("Music stopped")
-        await ctx.send("Music stopped")
+        await ctx.reply("Music stopped")
     else:
         print("Music could not be stopped")
-        await ctx.send("Music can't be stopped if there isn't music playing")
+        await ctx.reply("Music can't be stopped if there isn't music playing")
 
 
 #VOICE CHANNEL MUSIC QUEUE
@@ -748,7 +748,7 @@ async def _queue(ctx, url: str):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         print("Downloaded audio file\n")
         ydl.download([url])
-    await ctx.send("Adding song " + str(queue_num) + " to the queue")
+    await ctx.reply("Adding song " + str(queue_num) + " to the queue")
     print("added a song to queue\n")
 
 
@@ -805,7 +805,7 @@ async def _soundboard(ctx):
 #SB AIRHORN 
 @_soundboard.command(aliases = ["airhorn", "Airhorn"])
 async def _soundboard_airhorn(ctx):
-    await ctx.send("Playing **airhorn** sound effect from soundboard")
+    await ctx.reply("Playing **airhorn** sound effect from soundboard")
     print("\nPlayed airhorn sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/airhorn.mp3"))
@@ -815,7 +815,7 @@ async def _soundboard_airhorn(ctx):
 #SB ALI-A SOUNDTRACK
 @_soundboard.command(aliases = ["ali_a", "alia", "Ali-a", "Alia"])
 async def _soundboard_ali_a(ctx):
-    await ctx.send("Playing **ali_a** sound effect from soundboard")
+    await ctx.reply("Playing **ali_a** sound effect from soundboard")
     print("\nPlayed ali_a sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/ali_a.mp3"))
@@ -825,7 +825,7 @@ async def _soundboard_ali_a(ctx):
 #SB BEGONE THOT
 @_soundboard.command(aliases = ["begone_thot", "begonethot", "Begone_thot", "Begonethot"])
 async def _soundboard_begone_thot(ctx):
-    await ctx.send("Playing **begone_thot** sound effect from soundboard")
+    await ctx.reply("Playing **begone_thot** sound effect from soundboard")
     print("\nPlayed begone_thot sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/begone_thot.mp3"))
@@ -835,7 +835,7 @@ async def _soundboard_begone_thot(ctx):
 #SB DAMN SON WHERE'D U FIND THIS
 @_soundboard.command(aliases = ["damn_son", "Damn_son", "damnson", "Damnson"])
 async def _soundboard_damn_son(ctx):
-    await ctx.send("Playing **damn_son** sound effect from soundboard")
+    await ctx.reply("Playing **damn_son** sound effect from soundboard")
     print("\nPlayed damn_son sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/damn_son.mp3"))
@@ -845,7 +845,7 @@ async def _soundboard_damn_son(ctx):
 #SB DANKSTORM
 @_soundboard.command(aliases = ["dankstorm", "Dankstorm"])
 async def _soundboard_dankstorm(ctx):
-    await ctx.send("Playing **dankstorm** sound effect from soundboard")
+    await ctx.reply("Playing **dankstorm** sound effect from soundboard")
     print("\nPlayed dankstorm sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/dankstorm.mp3"))
@@ -855,7 +855,7 @@ async def _soundboard_dankstorm(ctx):
 #SB DEEZNUTS
 @_soundboard.command(aliases = ["deez_nuts", "deeznuts", "Deez_nuts", "Deeznuts"])
 async def _soundboard_deez_nuts(ctx):
-    await ctx.send("Playing **deez_nuts** sound effect from soundboard")
+    await ctx.reply("Playing **deez_nuts** sound effect from soundboard")
     print("\nPlayed deez_nuts sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/deez_nuts.mp3"))
@@ -865,7 +865,7 @@ async def _soundboard_deez_nuts(ctx):
 #SB DEJA VU
 @_soundboard.command(aliases = ["deja_vu", "dejavu", "Deja_vu", "Dejavu"])
 async def _soundboard_deja_vu(ctx):
-    await ctx.send("Playing **deja_vu** sound effect from soundboard")
+    await ctx.reply("Playing **deja_vu** sound effect from soundboard")
     print("\nPlayed deja_vu sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/deja_vu.mp3"))
@@ -875,7 +875,7 @@ async def _soundboard_deja_vu(ctx):
 #SB LOOK AT THIS DUDE
 @_soundboard.command(aliases = ["dis_dude", "this_dude", "disdude", "thisdude", "Dis_dude", "This_dude", "Disdude", "Thisdude" ])
 async def _soundboard_this_dude(ctx):
-    await ctx.send("Playing **dis_dude** sound effect from soundboard")
+    await ctx.reply("Playing **dis_dude** sound effect from soundboard")
     print("\nPlayed dis_dude sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/dis_dude.mp3"))
@@ -885,7 +885,7 @@ async def _soundboard_this_dude(ctx):
 #SB ANOTHER FAG LEFT THE CHAT
 @_soundboard.command(aliases = ["f_left", "fleft", "F_left", "Fleft"])
 async def _soundboard_f_left(ctx):
-    await ctx.send("Playing **f_left** sound effect from soundboard")
+    await ctx.reply("Playing **f_left** sound effect from soundboard")
     print("\nPlayed f_left sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/f_left.mp3"))
@@ -895,7 +895,7 @@ async def _soundboard_f_left(ctx):
 #SB FART
 @_soundboard.command(aliases = ["fart", "Fart"])
 async def _soundboard_fart(ctx):
-    await ctx.send("Playing **fart** sound effect from soundboard")
+    await ctx.reply("Playing **fart** sound effect from soundboard")
     print("\nPlayed fart sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/fart.mp3"))
@@ -905,7 +905,7 @@ async def _soundboard_fart(ctx):
 #SB HAH GAAAYY
 @_soundboard.command(aliases = ["hah_gay", "hahgay", "Hah_gay", "Hahgay"])
 async def _soundboard_hah_gay(ctx):
-    await ctx.send("Playing **hah_gay** sound effect from soundboard")
+    await ctx.reply("Playing **hah_gay** sound effect from soundboard")
     print("\nPlayed hah_gay sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/hah_gay.mp3"))
@@ -915,7 +915,7 @@ async def _soundboard_hah_gay(ctx):
 #SB IT'S CALLED HENTAI, AND IT'S ART
 @_soundboard.command(aliases = ["hen_art", "henart", "Hen_art", "Henart"])
 async def _soundboard_hentai_art(ctx):
-    await ctx.send("Playing **henart (hentai art)** sound effect from soundboard")
+    await ctx.reply("Playing **henart (hentai art)** sound effect from soundboard")
     print("\nPlayed henart sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/hen_art.mp3"))
@@ -925,7 +925,7 @@ async def _soundboard_hentai_art(ctx):
 #SB ILLUMINATI X-FILES SOUNDTRACK
 @_soundboard.command(aliases = ["illuminati", "Illuminati"])
 async def _soundboard_illuminati(ctx):
-    await ctx.send("Playing **illuminati** sound effect from soundboard")
+    await ctx.reply("Playing **illuminati** sound effect from soundboard")
     print("\nPlayed illuminati sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/illuminati.mp3"))
@@ -935,7 +935,7 @@ async def _soundboard_illuminati(ctx):
 #SB BITCH LASAGNA
 @_soundboard.command(aliases = ["lasagna", "Lasagna", "bitch_lasagna", "Bitch_lasagna"])
 async def _soundboard_bitch_lasagna(ctx):
-    await ctx.send("Playing **bitch_lasagna** sound effect from soundboard")
+    await ctx.reply("Playing **bitch_lasagna** sound effect from soundboard")
     print("\nPlayed bitch_lasagna sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/lasagna.mp3"))
@@ -945,7 +945,7 @@ async def _soundboard_bitch_lasagna(ctx):
 #SB LOOSER
 @_soundboard.command(aliases = ["looser", "Looser", "loser", "Loser"])
 async def _soundboard_loser(ctx):
-    await ctx.send("Playing **loser** sound effect from soundboard")
+    await ctx.reply("Playing **loser** sound effect from soundboard")
     print("\nPlayed loser sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/loser.mp3"))
@@ -955,7 +955,7 @@ async def _soundboard_loser(ctx):
 #SB NOOB 
 @_soundboard.command(aliases = ["noob", "Noob"])
 async def _soundboard_noob(ctx):
-    await ctx.send("Playing **noob** sound effect from soundboard")
+    await ctx.reply("Playing **noob** sound effect from soundboard")
     print("\nPlayed noob sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/noob.mp3"))
@@ -965,7 +965,7 @@ async def _soundboard_noob(ctx):
 #SB OOF SOUND
 @_soundboard.command(aliases = ["oof", "Oof"])
 async def _soundboard_oof(ctx):
-    await ctx.send("Playing **oof** sound effect from soundboard")
+    await ctx.reply("Playing **oof** sound effect from soundboard")
     print("\nPlayed oof sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/oof.mp3"))
@@ -975,7 +975,7 @@ async def _soundboard_oof(ctx):
 #SB I'M PICKLE RICKKKK
 @_soundboard.command(aliases = ["pickle_rick", "Pickle_rick", "picklerick", "Picklerick"])
 async def _soundboard_pickcle_rick(ctx):
-    await ctx.send("Playing **pickle_rick** sound effect from soundboard")
+    await ctx.reply("Playing **pickle_rick** sound effect from soundboard")
     print("\nPlayed pickle_rick sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/pickle_rick.mp3"))
@@ -985,7 +985,7 @@ async def _soundboard_pickcle_rick(ctx):
 #SB *POP* NICE  
 @_soundboard.command(aliases = ["nice", "Nice"])
 async def _soundboard_nice(ctx):
-    await ctx.send("Playing **nice** sound effect from soundboard")
+    await ctx.reply("Playing **nice** sound effect from soundboard")
     print("\nPlayed nice sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/nice.mp3"))
@@ -995,7 +995,7 @@ async def _soundboard_nice(ctx):
 #SB WHY DON'T WE JUST RELAX, TURN ON THE RADIO, WOULD YOU LIKE AM OR FM
 @_soundboard.command(aliases = ["radio", "Radio"])
 async def _soundboard_radio(ctx):
-    await ctx.send("Playing **radio** sound effect from soundboard")
+    await ctx.reply("Playing **radio** sound effect from soundboard")
     print("\nPlayed radio sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/radio.mp3"))
@@ -1005,7 +1005,7 @@ async def _soundboard_radio(ctx):
 #SB RICKROLL
 @_soundboard.command(aliases = ["rick_roll", "Rick_roll", "rickroll", "Rickroll"])
 async def _soundboard_rick_roll(ctx):
-    await ctx.send("Playing **rick_roll** sound effect from soundboard")
+    await ctx.reply("Playing **rick_roll** sound effect from soundboard")
     print("\nPlayed rick_roll sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/rick_roll.mp3"))
@@ -1015,7 +1015,7 @@ async def _soundboard_rick_roll(ctx):
 #SB SPARTA
 @_soundboard.command(aliases = ["sparta", "Sparta"])
 async def _soundboard_sparta(ctx):
-    await ctx.send("Playing **sparta** sound effect from soundboard")
+    await ctx.reply("Playing **sparta** sound effect from soundboard")
     print("\nPlayed sparta sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/sparta.mp3"))
@@ -1025,7 +1025,7 @@ async def _soundboard_sparta(ctx):
 #SB TITANIC FLUTE MEME
 @_soundboard.command(aliases = ["titanic", "Titanic"])
 async def _soundboard_titanic(ctx):
-    await ctx.send("Playing **titanic** sound effect from soundboard")
+    await ctx.reply("Playing **titanic** sound effect from soundboard")
     print("\nPlayed titanic sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/titanic.mp3"))
@@ -1035,7 +1035,7 @@ async def _soundboard_titanic(ctx):
 #SB GTAV WASTED SOUND
 @_soundboard.command(aliases = ["wasted", "Wasted"])
 async def _soundboard_wasted(ctx):
-    await ctx.send("Playing **wasted** sound effect from soundboard")
+    await ctx.reply("Playing **wasted** sound effect from soundboard")
     print("\nPlayed wasted sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/wasted.mp3"))
@@ -1045,7 +1045,7 @@ async def _soundboard_wasted(ctx):
 #WIDE PUTIN SONG
 @_soundboard.command(aliases = ["wideputin", "Wideputin"])
 async def _soundboard_wideputin(ctx):
-    await ctx.send("Playing **wideputin** sound effect from soundboard")
+    await ctx.reply("Playing **wideputin** sound effect from soundboard")
     print("\nPlayed wideputin sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/wideputin.mp3"))
@@ -1055,7 +1055,7 @@ async def _soundboard_wideputin(ctx):
 #SB RICK & MORTY WUBBA LUBBA DUB DUB
 @_soundboard.command(aliases = ["wubba", "Wubba"])
 async def _soundboard_wubba(ctx):
-    await ctx.send("Playing **wubba** sound effect from soundboard")
+    await ctx.reply("Playing **wubba** sound effect from soundboard")
     print("\nPlayed wubba sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/wubba.mp3"))
@@ -1103,7 +1103,7 @@ async def _8ball(ctx, *, user_question):
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
 
 
 #DICE COMMAND; 1-6
@@ -1163,7 +1163,7 @@ async def _sendsmeme(ctx):
         color = bot_color
     )
     embed.set_image(url = f"https://ctk-api.herokuapp.com/meme/{random_meme_number}")
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
 
 
 '''END OF GAME RELATED COMMANDS'''
@@ -1244,7 +1244,7 @@ async def _dictionarycommand(ctx, user_dictionary_request):
 
     await ctx.send(f"Getting you the definition of the word **{user_dictionary_request}**")
     await asyncio.sleep(float(0.5))
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
     await asyncio.sleep(float(0.5))
     await ctx.send(f"Here is the link:\nhttps://www.dictionary.com/browse/{user_dictionary_request}?s=t")
 
@@ -1268,7 +1268,7 @@ async def _synonymcommand(ctx, user_synonym_request):
 
     await ctx.send(f"Getting you the synonyms for the word {user_synonym_request}")
     await asyncio.sleep(float(0.5))
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
 
 
 #ANTONYM COMMAND, GIVES YOU THE ANTONYM OF THE WORD MENTIONED
@@ -1290,7 +1290,7 @@ async def _antonymcommand(ctx, user_antonym_request):
 
     await ctx.send(f"Getting you the antonyms for the word {user_antonym_request}")
     await asyncio.sleep(float(0.5))
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
 
 
 #REPEAT COMMAND; BOT REPEATS AFTER USER
@@ -1298,10 +1298,10 @@ async def _antonymcommand(ctx, user_antonym_request):
 @cooldown(5, 60, BucketType.default)
 async def _repeat_after_user(ctx, *, user_repeat_input):
     if "@everyone" in user_repeat_input:
-        await ctx.send("Cannot repeat mass ping")
+        await ctx.reply("Cannot repeat mass ping")
     else:
         if "@here" in user_repeat_input:
-            await ctx.send("Cannot repeat mass ping")
+            await ctx.reply("Cannot repeat mass ping")
         else:
             await ctx.send(f"{user_repeat_input}")
 
@@ -1326,17 +1326,17 @@ async def _ewlightmode(ctx):
 async def _replyspam(ctx, *, user_spam_input):
     print("Someone activated the reply spam command")
     if "@everyone" in user_spam_input:
-        await ctx.send("Cannot spam mass ping")
+        await ctx.reply("Cannot spam mass ping")
     else:
         if "@here" in user_spam_input:
-            await ctx.send("Cannot spam mass ping")
+            await ctx.reply("Cannot spam mass ping")
         else:
             for i in range(5):
                 await ctx.send(f"{user_spam_input}")
                 await asyncio.sleep(float(0.1))
             await asyncio.sleep(float(0.25))
             print("Reply spam command ended")
-            await ctx.send("Please wait 60 seconds to use this command again.")
+            await ctx.reply("Please wait 60 seconds to use this command again.")
 
 
 #PRINT COMMAND; SENDS A FANCY EMBED IMAGE WITH AUTHOR'S MESSAGE
@@ -1355,7 +1355,7 @@ async def _printmessage(ctx, *, user_print_message):
 async def _speedrunprofile(ctx, user_speedrun_input):
     await ctx.send(f"Sending {user_speedrun_input}'s profile...")
     await asyncio.sleep(float(1.5))
-    await ctx.send(f"https://speedrun.com/user/{user_speedrun_input}")
+    await ctx.reply(f"https://speedrun.com/user/{user_speedrun_input}")
 
 
 #SHUT UP COMMAND
@@ -1411,15 +1411,15 @@ async def _pi_digits_calc(ctx, pi_digits):
         print(f"Someone used the Pi calculator command to {DIGITS} digits")
         await ctx.send(f"Calculating Pi to {DIGITS} digits...")
         await asyncio.sleep(float(0.5))
-        await ctx.send(embed = embed)
+        await ctx.reply(embed = embed)
     
     elif DIGITS < 0:
         print("Pi calculator error: requested digits under 0")
-        await ctx.send("Error: requested digits cannot be under 0 or be negative")
+        await ctx.reply("Error: requested digits cannot be under 0 or be negative")
     
     elif DIGITS > 2000:
         print("Pi calculator error: requested digits over 2000")
-        await ctx.send("Error: requested digits cannot be over 2000 (this is to reduce calculation times and load on server)")
+        await ctx.reply("Error: requested digits cannot be over 2000 (this is to reduce calculation times and load on server)")
 
 
 #CACLULATE TAXES
@@ -1598,7 +1598,7 @@ async def _hsttime(ctx):
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
-    await ctx.send(embed = embed)
+    await ctx.reply(embed = embed)
 
 
 #DM USER COMMAND
