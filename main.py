@@ -211,7 +211,7 @@ async def _notif_email_system(message):
                 #plain-text to be sent
                 text = f"""\
 Announcement from Discord by {author_name}:
-"{message.content.replace('<@&874082096858136606> ', '')}"
+"{message.content.replace('@everyone <@&874082096858136606> ', '')}"
 
 
 
@@ -1424,7 +1424,7 @@ async def _pi_digits_calc(ctx, pi_digits):
 
 #CACLULATE TAXES
 @client.command(aliases = ["tax", "Tax", "calctax", "calcTax", "Calctax", "CalcTax"])
-async def _calculate_taxes(ctx, cost, state = "hawaii"):
+async def _calculate_taxes(ctx, cost, *, state = "hawaii"):
     if state == "alabama" or state == "Alabama":
         tax_rate = float(1.04)
         tax_output = float(cost) * tax_rate
@@ -1466,6 +1466,114 @@ async def _calculate_taxes(ctx, cost, state = "hawaii"):
         tax_output = float(cost) * tax_rate
     elif state == "indiana" or state == "Indiana":
         tax_rate = float(1.07)
+        tax_output = float(cost) * tax_rate
+    elif state == "iowa" or state == "Iowa":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "kansas" or state == "Kansas":
+        tax_rate = float(1.065)
+        tax_output = float(cost) * tax_rate
+    elif state == "kentucky" or state == "Kentucky":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "louisiana" or state == "Louisiana":
+        tax_rate = float(1.0445)
+        tax_output = float(cost) * tax_rate
+    elif state == "maine" or state == "Maine":
+        tax_rate = float(1.055)
+        tax_output = float(cost) * tax_rate
+    elif state == "maryland" or state == "Maryland":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "massachusetts" or state == "Massachusetts":
+        tax_rate = float(1.065)
+        tax_output = float(cost) * tax_rate
+    elif state == "michigan" or state == "Michigan":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "minnesota" or state == "Minnesota":
+        tax_rate = float(1.06875)
+        tax_output = float(cost) * tax_rate
+    elif state == "mississippi" or state == "Mississippi":
+        tax_rate = float(1.07)
+        tax_output = float(cost) * tax_rate
+    elif state == "missouri" or state == "Missouri":
+        tax_rate = float(1.04225)
+        tax_output = float(cost) * tax_rate
+    elif state == "montana" or state == "Montana":
+        tax_rate = float(1)
+        tax_output = float(cost) * tax_rate
+    elif state == "nebraska" or state == "Nebraska":
+        tax_rate = float(1.055)
+        tax_output = float(cost) * tax_rate
+    elif state == "nevada" or state == "Nevada":
+        tax_rate = float(1.0685)
+        tax_output = float(cost) * tax_rate
+    elif state == "new hampshire" or state == "New hampshire" or state == "New Hampshire":
+        tax_rate = float(1)
+        tax_output = float(cost) * tax_rate
+    elif state == "new jersey" or state == "New jersey" or state == "New Jersey":
+        tax_rate = float(1.06625)
+        tax_output = float(cost) * tax_rate
+    elif state == "new mexico" or state == "New mexico" or "New Mexico":
+        tax_rate = float(1.05125)
+        tax_output = float(cost) * tax_rate
+    elif state == "new york" or state == "New york" or state == "New York":
+        tax_rate = float(1.04)
+        tax_output = float(cost) * tax_rate
+    elif state == "north carolina" or state == "North carolina" or state == "North Carolina":
+        tax_rate = float(1.0475)
+        tax_output = float(cost) * tax_rate
+    elif state == "north dakota" or state == "North dakota" or state == "North Dakota":
+        tax_rate = float(1.05)
+        tax_output = float(cost) * tax_rate
+    elif state == "ohio" or state == "Ohio":
+        tax_rate = float(1.0575)
+        tax_output = float(cost) * tax_rate
+    elif state == "oklahoma" or state == "Oklahoma":
+        tax_rate = float(1.045)
+        tax_output = float(cost) * tax_rate
+    elif state == "oregon" or state == "Oregon":
+        tax_rate = float(1)
+        tax_output = float(cost) * tax_rate
+    elif state == "pennsylvania" or state == "Pennsylvania":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "rhode island" or state == "Rhode island" or state == "Rhode Island":
+        tax_rate = float(1.07)
+        tax_output = float(cost) * tax_rate
+    elif state == "south carolina" or state == "South carolina" or state == "South Carolina":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "south dakota" or state == "South dakota" or state == "South Dakota":
+        tax_rate = float(1.045)
+        tax_output = float(cost) * tax_rate
+    elif state == "tennessee" or state == "Tennessee":
+        tax_rate = float(1.07)
+        tax_output = float(cost) * tax_rate
+    elif state == "texas" or state == "Texas":
+        tax_rate = float(1.0625)
+        tax_output = float(cost) * tax_rate
+    elif state == "utah" or state == "Utah":
+        tax_rate = float(1.061)
+        tax_output = float(cost) * tax_rate
+    elif state == "vermont" or state == "Vermont":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "virginia" or state == "Virginia":
+        tax_rate = float(1.053)
+        tax_output = float(cost) * tax_rate
+    elif state == "washington" or state == "Washington":
+        tax_rate = float(1.065)
+        tax_output = float(cost) * tax_rate
+    elif state == "west virginia" or state == "West virginia" or state == "West Virginia":
+        tax_rate = float(1.06)
+        tax_output = float(cost) * tax_rate
+    elif state == "wisconsin" or state == "Wisconsin":
+        tax_rate = float(1.065)
+        tax_output = float(cost) * tax_rate
+    elif state == "wyoming" or state == "Wyoming":
+        tax_rate = float(1)
         tax_output = float(cost) * tax_rate
     
     embed = discord.Embed(
