@@ -241,8 +241,80 @@ Magma Media Email: 3008@imagineworks.com
                 print(f"sent email #{email_num_sent}")
                 email_num_sent += 1
             await message.channel.send("Emails have been sent out.")
-        
-        
+
+
+#EVERYONE PING + MESSAGE COMMAND
+@client.command(aliases = ["eping"])
+@cooldown(1, 3600, BucketType.default)
+@commands.has_any_role("Rare Earth Metal", "Mentors", "Team Captain", "FTC Captain", "VEX Captain", "Drones Captain")
+async def _mass_announcement(ctx, *, message):
+    channel = client.get_channel(873124359353548840)
+    await ctx.channel.purge(limit = 1)
+    await asyncio.sleep(float(0.25))
+    await ctx.send(f"@everyone {message}")
+    await channel.send(f"Sent the message:\n\n```{message}```")
+
+
+#HERE PING + MESSAGE COMMAND
+@client.command(aliases = ["hping"])
+@cooldown(1, 3600, BucketType.default)
+@commands.has_any_role("Rare Earth Metal", "Mentors", "Team Captain", "FTC Captain", "VEX Captain", "Drones Captain")
+async def _here_announcement(ctx, *, message):
+    channel = client.get_channel(873124359353548840)
+    await ctx.channel.purge(limit = 1)
+    await asyncio.sleep(float(0.25))
+    await ctx.send(f"@here {message}")
+    await channel.send(f"Sent the message:\n\n```{message}```")
+
+
+#FRC PING + MESSAGE
+@client.command(aliases = ["frcping", "FRCping"])
+@cooldown(1, 3600, BucketType.default)
+@commands.has_any_role("Rare Earth Metal", "Mentors", "Team Captain", "FTC Captain", "VEX Captain", "Drones Captain")
+async def _frc_announcement(ctx, *, message):
+    channel = client.get_channel(873124359353548840)
+    await ctx.channel.purge(limit = 1)
+    await asyncio.sleep(float(0.25))
+    await ctx.send(f"<@873103516728700928> {message}")
+    await channel.send(f"Sent the message:\n\n```{message}```")
+
+
+#FTC PING + MESSAGE
+@client.command(aliases = ["ftcping", "FTCping"])
+@cooldown(1, 3600, BucketType.default)
+@commands.has_any_role("Rare Earth Metal", "Mentors", "Team Captain", "FTC Captain", "VEX Captain", "Drones Captain")
+async def _ftc_announcement(ctx, *, message):
+    channel = client.get_channel(873124359353548840)
+    await ctx.channel.purge(limit = 1)
+    await asyncio.sleep(float(0.25))
+    await ctx.send(f"<@873103168769241088> {message}")
+    await channel.send(f"Sent the message:\n\n```{message}```")
+
+
+#VEX PING + MESSAGE
+@client.command(aliases = ["vexping", "VEXping"])
+@cooldown(1, 3600, BucketType.default)
+@commands.has_any_role("Rare Earth Metal", "Mentors", "Team Captain", "FTC Captain", "VEX Captain", "Drones Captain")
+async def _vex_announcement(ctx, *, message):
+    channel = client.get_channel(873124359353548840)
+    await ctx.channel.purge(limit = 1)
+    await asyncio.sleep(float(0.25))
+    await ctx.send(f"<@873103193746337854> {message}")
+    await channel.send(f"Sent the message:\n\n```{message}```")
+
+
+#DRONES PING + MESSAGE
+@client.command(aliases = ["dronesping", "droneping"])
+@cooldown(1, 3600, BucketType.default)
+@commands.has_any_role("Rare Earth Metal", "Mentors", "Team Captain", "FTC Captain", "VEX Captain", "Drones Captain")
+async def _drones_announcement(ctx, *, message):
+    channel = client.get_channel(873124359353548840)
+    await ctx.channel.purge(limit = 1)
+    await asyncio.sleep(float(0.25))
+    await ctx.send(f"<@873103245210443776> {message}")
+    await channel.send(f"Sent the message:\n\n```{message}```")
+
+
 #SEND BOT INVITE LINK COMMAND
 @client.command(aliases = ["botinvite", "BotInvite", "Botinvite", "MBlink", "mblink"])
 @cooldown(1, 60, BucketType.default)
@@ -388,7 +460,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Moderation related commands list**",
-            description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
+            description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nEveryone announcement: **mag eping {message}**\nHere announcement: **mag hping {message}**\nFRC Notif: **frcping {message}**\nFTC Notif: **ftcping {message}**\nVEX Notif: **vexping {message}**\nDrones Notif: **dronesping {message}**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -478,7 +550,7 @@ async def _help_moderation(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Moderation related commands list**",
-        description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
+        description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nEveryone announcement: **mag eping {message}**\nHere announcement: **mag hping {message}**\nFRC Notif: **frcping {message}**\nFTC Notif: **ftcping {message}**\nVEX Notif: **vexping {message}**\nDrones Notif: **dronesping {message}**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
