@@ -13,7 +13,7 @@ Program Status: ACTIVE - BETA
 '''
 
 '''
-just an important note; this bot is compleatly based of mag due to time constraits. some code and sections have been modified.
+just an important note; this bot is comepletely based of CV6 due to time constraits. some code and sections have been modified.
 '''
 
 #imports related to discord or discord packages
@@ -41,6 +41,7 @@ import ssl
 import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import numpy
 
 
 #imports from other files
@@ -93,6 +94,7 @@ async def reload(ctx, extension):
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
+
 
 
 #LOADS JISHAKU LIBRARY
@@ -176,7 +178,7 @@ async def on_member_join(member):
     await channel.send(random.choice(welcome_gifs))
     
     #alerts captain in #bot-status that someone joined
-    await channel2.send(f"<@467451098735837186> <@392066726281609228>, {mention} has joined the server")
+    await channel2.send(f"<@467451098735837186> <@392066726281609228>, someone has joined the server")
 
 
 #SENDS NOTIFICATION EMAIL
@@ -195,9 +197,8 @@ async def _notif_email_system(message):
     if message.author.bot:
         return
     else:
-        if "874082096858136606" in message.content:
-            sender_email = "magmabotnotification@gmail.com" #Sending email
-            #receiver_email = ["2023yanj@kalanihs.org", "2023phamk@kalanihs.org"] #list of receiving emails
+        if "<@&874082096858136606>" in message.content:
+            sender_email = "magma3008bot@gmail.com" #Sending email
             password = bot_email_password
 
             email_num_sent = 1
@@ -211,13 +212,13 @@ async def _notif_email_system(message):
                 #plain-text to be sent
                 text = f"""\
 Announcement from Discord by {author_name}:
-"{message.content.replace('@everyone <@&874082096858136606> ', '')}"
+"{message.content.replace('<@&874082096858136606> ', '')}"
 
 
 
 
 
-This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server.
+This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server. If you feel like you received this email by accident, please reply CANCEL NOTIFS.
 
 
 Link to Discord Server: {discord_invite_link}
@@ -241,6 +242,263 @@ Magma Media Email: 3008@imagineworks.com
                 print(f"sent email #{email_num_sent}")
                 email_num_sent += 1
             await message.channel.send("Emails have been sent out.")
+            await message.channel.send("<@&873093415959683087> in case you missed it ^")
+
+
+#SENDS FRC NOTIFICATION EMAIL
+@client.listen("on_message")
+async def _frc_notif_email_system(message):
+
+    # GETS DATABASE DATA
+    def load_json(path):
+        with open(path, 'r') as f:
+            dictionary = json.load(f)
+        return dictionary
+    email_dict = load_json("database/frc_contacts.json")
+    receiver_email = email_dict["emails"]
+
+    author_name = message.author.display_name
+    if message.author.bot:
+        return
+    else:
+        if "<@&888582826344202280>" in message.content:
+            sender_email = "magma3008bot@gmail.com" #Sending email
+            password = bot_email_password
+
+            email_num_sent = 1
+            for i in range(len(receiver_email)):
+                active_email = receiver_email[i]
+                send_message = MIMEMultipart("alternative")
+                send_message["Subject"] = "FRC Robotics - Email Announcement"
+                send_message["From"] = sender_email
+                send_message["To"] = active_email
+
+                #plain-text to be sent
+                text = f"""\
+Announcement from Discord by {author_name}:
+"{message.content.replace('<@&888582826344202280> ', '')}"
+
+
+
+
+
+This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server. If you feel like you received this email by accident, please reply CANCEL NOTIFS.
+
+
+Link to Discord Server: {discord_invite_link}
+MagmaBot GitHub Repository: https://github.com/CaptainVietnam6/MagmaBot
+Magma Robotics Website: https://www.magmarobotics.com/
+Magma Robotics Instagram: @frcteam3008
+Magma Robotics Facebook: @Team Falcons
+Magma Robotics Twitter: @FRCTeam3008
+Magma Media Email: 3008@imagineworks.com
+"""
+                part1 = MIMEText(text, "plain")
+                send_message.attach(part1)
+
+                #Create secure connection with server and sends email
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, active_email, send_message.as_string())
+
+                #Alerts that the email has been sent in the Terminal
+                print(f"sent email #{email_num_sent}")
+                email_num_sent += 1
+            await message.channel.send("FRC directed emails have been sent out.")
+            await message.channel.send("<@&873103516728700928> in case you missed it ^")
+
+
+#SENDS FTC NOTIFICATION EMAIL
+@client.listen("on_message")
+async def _ftc_notif_email_system(message):
+
+    # GETS DATABASE DATA
+    def load_json(path):
+        with open(path, 'r') as f:
+            dictionary = json.load(f)
+        return dictionary
+    email_dict = load_json("database/ftc_contacts.json")
+    receiver_email = email_dict["emails"]
+
+    author_name = message.author.display_name
+    if message.author.bot:
+        return
+    else:
+        if "<@&888582728243609630>" in message.content:
+            sender_email = "magma3008bot@gmail.com" #Sending email
+            password = bot_email_password
+
+            email_num_sent = 1
+            for i in range(len(receiver_email)):
+                active_email = receiver_email[i]
+                send_message = MIMEMultipart("alternative")
+                send_message["Subject"] = "FTC Robotics - Email Announcement"
+                send_message["From"] = sender_email
+                send_message["To"] = active_email
+
+                #plain-text to be sent
+                text = f"""\
+Announcement from Discord by {author_name}:
+"{message.content.replace('<@&888582728243609630> ', '')}"
+
+
+
+
+
+This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server. If you feel like you received this email by accident, please reply CANCEL NOTIFS.
+
+
+Link to Discord Server: {discord_invite_link}
+MagmaBot GitHub Repository: https://github.com/CaptainVietnam6/MagmaBot
+Magma Robotics Website: https://www.magmarobotics.com/
+Magma Robotics Instagram: @frcteam3008
+Magma Robotics Facebook: @Team Falcons
+Magma Robotics Twitter: @FRCTeam3008
+Magma Media Email: 3008@imagineworks.com
+"""
+                part1 = MIMEText(text, "plain")
+                send_message.attach(part1)
+
+                #Create secure connection with server and sends email
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, active_email, send_message.as_string())
+
+                #Alerts that the email has been sent in the Terminal
+                print(f"sent email #{email_num_sent}")
+                email_num_sent += 1
+            await message.channel.send("FTC directed emails have been sent out.")
+            await message.channel.send("<@&873103168769241088> in case you missed it ^")
+
+
+#SENDS VEX NOTIFICATION EMAIL
+@client.listen("on_message")
+async def _vex_notif_email_system(message):
+
+    # GETS DATABASE DATA
+    def load_json(path):
+        with open(path, 'r') as f:
+            dictionary = json.load(f)
+        return dictionary
+    email_dict = load_json("database/vex_contacts.json")
+    receiver_email = email_dict["emails"]
+
+    author_name = message.author.display_name
+    if message.author.bot:
+        return
+    else:
+        if "<@&888582938424385546>" in message.content:
+            sender_email = "magma3008bot@gmail.com" #Sending email
+            password = bot_email_password
+
+            email_num_sent = 1
+            for i in range(len(receiver_email)):
+                active_email = receiver_email[i]
+                send_message = MIMEMultipart("alternative")
+                send_message["Subject"] = "VEX Robotics - Email Announcement"
+                send_message["From"] = sender_email
+                send_message["To"] = active_email
+
+                #plain-text to be sent
+                text = f"""\
+Announcement from Discord by {author_name}:
+"{message.content.replace('<@&888582938424385546> ', '')}"
+
+
+
+
+
+This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server. If you feel like you received this email by accident, please reply CANCEL NOTIFS.
+
+
+Link to Discord Server: {discord_invite_link}
+MagmaBot GitHub Repository: https://github.com/CaptainVietnam6/MagmaBot
+Magma Robotics Website: https://www.magmarobotics.com/
+Magma Robotics Instagram: @frcteam3008
+Magma Robotics Facebook: @Team Falcons
+Magma Robotics Twitter: @FRCTeam3008
+Magma Media Email: 3008@imagineworks.com
+"""
+                part1 = MIMEText(text, "plain")
+                send_message.attach(part1)
+
+                #Create secure connection with server and sends email
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, active_email, send_message.as_string())
+
+                #Alerts that the email has been sent in the Terminal
+                print(f"sent email #{email_num_sent}")
+                email_num_sent += 1
+            await message.channel.send("VEX directed emails have been sent out.")
+            await message.channel.send("<@&873103193746337854> in case you missed it ^")
+
+
+#SENDS DRONES NOTIFICATION EMAIL
+@client.listen("on_message")
+async def _drones_notif_email_system(message):
+
+    # GETS DATABASE DATA
+    def load_json(path):
+        with open(path, 'r') as f:
+            dictionary = json.load(f)
+        return dictionary
+    email_dict = load_json("database/drones_contacts.json")
+    receiver_email = email_dict["emails"]
+
+    author_name = message.author.display_name
+    if message.author.bot:
+        return
+    else:
+        if "<@&888582993038430219>" in message.content:
+            sender_email = "magma3008bot@gmail.com" #Sending email
+            password = bot_email_password
+
+            email_num_sent = 1
+            for i in range(len(receiver_email)):
+                active_email = receiver_email[i]
+                send_message = MIMEMultipart("alternative")
+                send_message["Subject"] = "Drones Robotics - Email Announcement"
+                send_message["From"] = sender_email
+                send_message["To"] = active_email
+
+                #plain-text to be sent
+                text = f"""\
+Announcement from Discord by {author_name}:
+"{message.content.replace('<@&888582993038430219> ', '')}"
+
+
+
+
+
+This is an automated email message sent by a bot, the original message can be viewed on the Official Team Magma 3008 Discord Server. If you feel like you received this email by accident, please reply CANCEL NOTIFS.
+
+
+Link to Discord Server: {discord_invite_link}
+MagmaBot GitHub Repository: https://github.com/CaptainVietnam6/MagmaBot
+Magma Robotics Website: https://www.magmarobotics.com/
+Magma Robotics Instagram: @frcteam3008
+Magma Robotics Facebook: @Team Falcons
+Magma Robotics Twitter: @FRCTeam3008
+Magma Media Email: 3008@imagineworks.com
+"""
+                part1 = MIMEText(text, "plain")
+                send_message.attach(part1)
+
+                #Create secure connection with server and sends email
+                context = ssl.create_default_context()
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, active_email, send_message.as_string())
+
+                #Alerts that the email has been sent in the Terminal
+                print(f"sent email #{email_num_sent}")
+                email_num_sent += 1
+            await message.channel.send("Drones directed emails have been sent out.")
+            await message.channel.send("<@&873103245210443776> in case you missed it ^")
 
 
 #EVERYONE PING + MESSAGE COMMAND
@@ -275,7 +533,7 @@ async def _frc_announcement(ctx, *, message):
     channel = client.get_channel(873124359353548840)
     await ctx.channel.purge(limit = 1)
     await asyncio.sleep(float(0.25))
-    await ctx.send(f"<@873103516728700928> {message}")
+    await ctx.send(f"<@&873103516728700928> {message}")
     await channel.send(f"Sent the message:\n\n```{message}```")
 
 
@@ -287,7 +545,7 @@ async def _ftc_announcement(ctx, *, message):
     channel = client.get_channel(873124359353548840)
     await ctx.channel.purge(limit = 1)
     await asyncio.sleep(float(0.25))
-    await ctx.send(f"<@873103168769241088> {message}")
+    await ctx.send(f"<@&873103168769241088> {message}")
     await channel.send(f"Sent the message:\n\n```{message}```")
 
 
@@ -299,7 +557,7 @@ async def _vex_announcement(ctx, *, message):
     channel = client.get_channel(873124359353548840)
     await ctx.channel.purge(limit = 1)
     await asyncio.sleep(float(0.25))
-    await ctx.send(f"<@873103193746337854> {message}")
+    await ctx.send(f"<@&873103193746337854> {message}")
     await channel.send(f"Sent the message:\n\n```{message}```")
 
 
@@ -311,7 +569,7 @@ async def _drones_announcement(ctx, *, message):
     channel = client.get_channel(873124359353548840)
     await ctx.channel.purge(limit = 1)
     await asyncio.sleep(float(0.25))
-    await ctx.send(f"<@873103245210443776> {message}")
+    await ctx.send(f"<@&873103245210443776> {message}")
     await channel.send(f"Sent the message:\n\n```{message}```")
 
 
@@ -392,6 +650,20 @@ async def _therules(ctx):
     await ctx.send(embed = embed)
 
 
+#FORMS COMMANDS
+@client.command(aliases = ["form", "forms", "Forms", "Form"])
+async def _forms_links(ctx):
+    author_name = ctx.author.display_name
+    embed = discord.Embed(
+        title = "Robotics Forms Link",
+        description = "\n**Robotics info & contact form:** https://forms.gle/3r47ypeub39Jf41o7\n**~~Robotics Open House Confirmation:~~** https://forms.gle/iMHyTGSJpB1jcyP68\n**Robotics Sub-Teams Pick:** https://forms.gle/6HDE4tzidquohE9L7\n**Emergency Contact Form:** https://forms.gle/uiMqrhBZq5uB5LAU6\n**Commitment, Fees and t-shirt Form**: https://docs.google.com/document/d/1nFxeGExznJ07M5myA-FOk49_UiPKWONm2vL6KNoCkuI/edit?usp=drivesdk\n\n**Teams Rosters:** https://docs.google.com/spreadsheets/d/1KbJfU6uz4s8GdatZNlW7-kSMLweJ-eJqOSC6Lh7ABYM/edit?usp=sharing",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+    embed.set_thumbnail(url = "https://cdn.discordapp.com/attachments/834594619894267945/873129226436489256/20210805_205424.jpg")
+    await ctx.send(embed = embed)
+
+
 #HELP COMMAND
 @client.group(invoke_without_command = True, aliases = ["help", "Help"])
 async def _help(ctx):
@@ -460,7 +732,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Moderation related commands list**",
-            description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nEveryone announcement: **mag eping {message}**\nHere announcement: **mag hping {message}**\nFRC Notif: **frcping {message}**\nFTC Notif: **ftcping {message}**\nVEX Notif: **vexping {message}**\nDrones Notif: **dronesping {message}**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
+            description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nRules: **mag rules**\nForms: **mag forms**\nEveryone announcement: **mag eping {message}**\nHere announcement: **mag hping {message}**\nFRC Notif: **frcping {message}**\nFTC Notif: **ftcping {message}**\nVEX Notif: **vexping {message}**\nDrones Notif: **dronesping {message}**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -550,7 +822,7 @@ async def _help_moderation(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Moderation related commands list**",
-        description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nEveryone announcement: **mag eping {message}**\nHere announcement: **mag hping {message}**\nFRC Notif: **frcping {message}**\nFTC Notif: **ftcping {message}**\nVEX Notif: **vexping {message}**\nDrones Notif: **dronesping {message}**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
+        description = "**These are commands that relate to moderation features of MagmaBot, most require administrative powers**\n\nWelcome command: **mag welcome**\nDescription command: **mag description**\nBot description: **mag botdesc**\nRules: **mag rules**\nForms: **mag forms**\nEveryone announcement: **mag eping {message}**\nHere announcement: **mag hping {message}**\nFRC Notif: **frcping {message}**\nFTC Notif: **ftcping {message}**\nVEX Notif: **vexping {message}**\nDrones Notif: **dronesping {message}**\nUser ID: **mag id {tag user}**\nKick command: **mag kick (tag member, reason)**\nBan command: **mag ban (tag member, reason)**\nVotekick: **mag votekick (tag member) (reason)**\nPurge/clear chat: **mag clear (number of messages)**\nBot invite link: **mag botinvite**\nTime command: **mag time**\nHelp directory: **mag help**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
