@@ -3,7 +3,7 @@ Copyright (c) 2021 Kiet Pham <kiet.riley2005@gmail.com>
 This software/program has a copyright license, more information is in the 'LICENSE' file
 IF YOU WANT TO USE/COPY/MODIFY/REPRODUCE/RE-DISTRIBUTE THIS PROGRAM, YOU MUST INCLUDE A COPY OF THE LICENSE
 
-Author Name: Kiet Pham
+Author Name: Kiet Pham, Junle Yan
 Author Contact: kiet.riley2005@gmail.com
 Discord: CaptainVietnam6#9842
 Discord Server: https://discord.gg/3z76p8H5yj
@@ -642,7 +642,7 @@ async def _therules(ctx):
     heart_emoji = "\u2764\ufe0f"
     embed = discord.Embed(
         title = "「Server rules」",
-        description = "1. Set your server nickname as your real first name\n2. No excessive swearing or profanity\n3. Be mindful and considerate of others\n4. Don't abuse my bot or spam\n5. I will assume all of you are mature enough not to do anything dumb, thanks.",
+        description = "1. Set your server nickname as your real first name\n2. No excessive swearing or profanity\n3. Keep anything not related to robotics in Off Topic channels, related to robotics? In other channels in their respective categories\n4. Be mindful and considerate of others\n5. Don't abuse the bot or spam",
         color = bot_color
     )
     embed.set_footer(text = f"Bot and rules made with love by Kiet P.{heart_emoji}")
@@ -2013,6 +2013,7 @@ async def replypog(message):
         await message.channel.send(random.choice(pog_responses))
 
 
+'''
 #CAPT GET PINGED
 @client.listen("on_message")
 async def captgetpinged(message):
@@ -2026,6 +2027,7 @@ async def captgetpinged(message):
     #PC varient
     if "<@!467451098735837186>" in message.content:
         await message.channel.send(f"{capt_got_pinged_message}")
+'''
 
 
 '''
