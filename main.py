@@ -682,7 +682,7 @@ async def _help(ctx):
         author_name = ctx.author.display_name
         embed = discord.Embed(
             title = "**Fun/responses related commands list**",
-            description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**\nSomeone say math?: **math**",
+            description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**\nSomeone say math?: **math**\nEncrypt Message: **mag encrypt {message}**\nDecrypt Message: **mag decrypt {message}**",
             color = bot_color
         )
         embed.set_footer(text = f"Requested by {author_name}")
@@ -762,7 +762,7 @@ async def _help_fun(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Fun/responses related commands list**",
-        description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**\nSomeone say math?: **math**",
+        description = "**These are commands that relate to fun or responses features of MagmaBot**\n\n8ball command: **mag 8ball {question}**\nDice command: **mag dice**\nMeme command: **mag meme**\nHow-to-use-google: **mag google**\nBenice to staff: **mag benice**\nDictionary: **mag dictionary {word}**\nSynonyms: **mag synonym {word}**\nAntonyms: **mag antonym {word}**\nRepeat after user: **mag repeat**\nCapt Twitch link: **mag twitch**\nEw lightmode: **mag lightmode**\nReply spam: **mag spam {word}**\nPrint fancy text: **mag print {word}**\nSpeedrun profile: **mag speedrun {user name}**\nShut up GIF: **mag shut**\nSends nothing: **mag nothing**\nDiscordmod meme: **mag discordmod**\nFair: **fair**\nPog: **pog**\nCalculate Pi: **mag pi {enter digits}**\nDM user: **mag dm {tag person} {message}**\nRandomly pings someone: **mag someone**\nI like trains: **mag trains**\nSomeone say math?: **math**\nEncrypt Message: **mag encrypt {message}**\nDecrypt Message: **mag decrypt {message}**",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -1969,6 +1969,73 @@ async def _iliketrains_gif(ctx):
     await ctx.send("https://tenor.com/view/funny-iliketrains-trains-gif-4905803")
 
 
+#ENCRYPTION ALGORITHM
+@client.command(aliases = ["encrypt", "Encrypt"])
+async def _encrypt_message(ctx, *, user_input):
+    author_name = ctx.author.display_name
+    encrypt_output = []
+    user_input = user_input.lower()
+
+    #the conversion table is a dictionary that just moves the character to the next one in the english alphabet
+    conversion_table = {
+        "a" : "b", "b" : "c", "c" : "d", "d" : "e", "e" : "f", "f" : "g", "g" : "h", "h" : "i", "i" : "j", "j" : "k", "k" : "l", "l" : "m", "m" : "n", "n" : "o", "o" : "p", "p" : "q", "q" : "r", "r" : "s", "s" : "t", "t" : "u", "u" : "v", "v" : "w", "w" : "x", "x" : "y", "y" : "z", "z" : "a", "0" : "1", "1" : "2", "2" : "3", "3" : "4", "4" : "5", "5" : "6", "6" : "7", "7" : "8", "8" : "9", "9" : "0", " " : " "
+    }
+
+    #for each character in the user message, it will find a corresponding letter in the dictionary and append it to the list
+    for character in user_input: 
+        character_output = str(conversion_table[str(character)])
+        encrypt_output.append(character_output)
+
+    #sends the final message
+    final_output = "".join(encrypt_output)
+    embed = discord.Embed(
+        title = "Message Encryption",
+        description = f"{final_output}",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+
+    #await ctx.message.delete(1)
+    await ctx.message.delete()
+    await asyncio.sleep(float(0.5))
+    await ctx.send(embed = embed)
+
+
+#DECRYPTION ALGORITHM
+@client.command(aliases = ["decrypt", "Decrypt"])
+async def _decrypt_message(ctx, *, user_input):
+    author_name = ctx.author.display_name
+    decrypt_output = []
+    user_input = user_input.lower()
+
+    #the decrypt conversion table is a dictionary that just moves the character to the previous one in the english alphabet
+    conversion_table = {
+        "b" : "a", "c" : "b", "d" : "c", "e" : "d", "f" : "e", "g" : "f", "h" : "g", "i" : "h", "j" : "i", "k" : "j", "l" : "k", "m" : "l", "n" : "m", "o" : "n", "p" : "o", "q" : "p", "r" : "q", "s" : "r", "t" : "s", "u" : "t", "v" : "u", "w" : "v", "x" : "w", "y" : "x", "z" : "y", "a" : "z", "1" : "0", "2" : "1", "3" : "2", "4" : "3", "5" : "4", "6" : "5", "7" : "6", "8" : "7", "9" : "8", "0" : "9", " " : " "
+    }
+
+    #for each character in the user message, it will find a corresponding letter in the dictionary and append it to the list
+    for character in user_input: 
+        character_output = str(conversion_table[str(character)])
+        decrypt_output.append(character_output)
+
+    #same thing as before but decrypting
+    final_output = "".join(decrypt_output)
+    embed = discord.Embed(
+        title = "Message Decryption",
+        description = f"{final_output}",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+
+    #await ctx.message.delete(1)
+    await ctx.message.delete()
+    await asyncio.sleep(float(0.5))
+    await ctx.send(embed = embed)
+
+
+#BELOW HERE IS THE ALWAYS ACTIVE CLIENT.LISTEN AND ON_MESSAGE COMMANDS
+
+
 #AI RESPONSE COMMAND
 @client.listen("on_message")
 async def ai_chatbot(message):
@@ -1984,9 +2051,6 @@ async def ai_chatbot(message):
                 return
         else:
             return
-
-
-#BELOW HERE IS THE ALWAYS ACTIVE CLIENT.LISTEN AND ON_MESSAGE COMMANDS
 
 
 #FAIR
@@ -2129,6 +2193,7 @@ async def _ramdon_stfu_detect(message):
             await message.channel.send(f"<@{mention}> {stfu_responses}")
 
 
+'''
 #REPLIES WITH SUS GIF WHEN SOMEONE SAYS SUS
 @client.listen("on_message")
 async def _sus_gif_send(message):
@@ -2141,6 +2206,7 @@ async def _sus_gif_send(message):
             await message.channel.send("https://tenor.com/view/sus-suspect-among-us-gif-18663592")
         if "SUS" in message.content:
             await message.channel.send("https://tenor.com/view/sus-suspect-among-us-gif-18663592")
+'''
 
 
 #SOMEONE SAY MATH?
