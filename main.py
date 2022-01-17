@@ -192,7 +192,6 @@ async def _notif_email_system(message):
         return dictionary
     email_dict = load_json("database/contacts.json")
     receiver_email = email_dict["emails"]
-
     author_name = message.author.display_name
     if message.author.bot:
         return
@@ -654,11 +653,14 @@ async def _therules(ctx):
 @client.command(aliases = ["form", "forms", "Forms", "Form"])
 async def _forms_links(ctx):
     author_name = ctx.author.display_name
-    embed = discord.Embed(
-        title = "Robotics Forms Link",
-        description = "\n**Robotics info & contact form:** https://forms.gle/3r47ypeub39Jf41o7\n**~~Robotics Open House Confirmation:~~** https://forms.gle/iMHyTGSJpB1jcyP68\n**Robotics Sub-Teams Pick:** https://forms.gle/6HDE4tzidquohE9L7\n**Emergency Contact Form:** https://forms.gle/uiMqrhBZq5uB5LAU6\n**Commitment, Fees and t-shirt Form**: https://docs.google.com/document/d/1nFxeGExznJ07M5myA-FOk49_UiPKWONm2vL6KNoCkuI/edit?usp=drivesdk\n\n**Teams Rosters:** https://docs.google.com/spreadsheets/d/1KbJfU6uz4s8GdatZNlW7-kSMLweJ-eJqOSC6Lh7ABYM/edit?usp=sharing",
-        color = bot_color
-    )
+    embed = discord.Embed(title = "Robotics Form Links", description = "", color = bot_color)
+    embed.add_field(name = 'Robotics info & contact form:', value = 'https://forms.gle/3r47ypeub39Jf41o7', inline = False)
+    embed.add_field(name = '~~Robotics Open House Confirmation~~:', value = 'https://forms.gle/iMHyTGSJpB1jcyP68', inline = False)
+    embed.add_field(name = 'Robotics Sub-Teams Pick:', value = 'https://forms.gle/6HDE4tzidquohE9L7', inline = False)
+    embed.add_field(name = 'Emergency Contact Form:', value = 'https://forms.gle/uiMqrhBZq5uB5LAU6', inline = False)
+    embed.add_field(name = 'Commitment, Fees and t-shirt Form:', value = 'https://docs.google.com/document/d/1nFxeGExznJ07M5myA-FOk49_UiPKWONm2vL6KNoCkuI/edit?usp=drivesdk\n', inline = False)
+    embed.add_field(name = 'Teams Rosters:', value = 'https://docs.google.com/spreadsheets/d/1KbJfU6uz4s8GdatZNlW7-kSMLweJ-eJqOSC6Lh7ABYM/edit?usp=sharing', inline = False)
+
     embed.set_footer(text = f"Requested by {author_name}")
     embed.set_thumbnail(url = "https://cdn.discordapp.com/attachments/834594619894267945/873129226436489256/20210805_205424.jpg")
     await ctx.send(embed = embed)
@@ -886,6 +888,58 @@ async def _help_test_command(ctx):
     
 
 '''END OF TEST-BED COMMANDS OR COMMANDS FOR TESTING'''
+
+'''START OF DRONES ROBOTICS COMMANDS'''
+
+
+@client.group(invoke_without_command = True, aliases = ["drones", "Drones", "drone", "Drone"])
+async def _drones(ctx):
+    author_name = ctx.author.display_name
+    embed = discord.Embed(
+        title = "**Drones commands directory**",
+        description = "**Resources command:** mag drones resources\n**Drones lesson plans:** mag drones lesson\n**Drones schedule:** mag drones schedule\n\n",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+    await ctx.send(embed = embed)
+
+
+@_drones.command(aliases = ["resources", "Resources", "resource", "Resource"])
+async def _drones_resources(ctx):
+    author_name = ctx.author.display_name
+    embed = discord.Embed(
+        title = "**Drones resources**",
+        description = "**Drones Google Drive FOlder:** https://drive.google.com/drive/folders/1HQunoaAI2NzXdhObBQRMkMFWFIcIp-44?usp=sharing\n\n**Lesson plan:**https://docs.google.com/document/d/1xzT2_a2JLkOA48fMCJOBp2UKOylvcEnZXrQTNt84VpY/edit?usp=sharing\n\n**Pre-flight checklist:** https://docs.google.com/spreadsheets/d/1CMEKPWqM0DK6ay46B-472CXqKP4xqL_B2JoNtIOESng/edit?usp=sharing\n\n**Drones Inventory:** https://docs.google.com/spreadsheets/d/1oO5IP0Q_ZugBGxoMRwaauKX6nw6ZziOCqofEVzgQ60U/edit?usp=sharing\n\n**LiPo Battery Datasheet:** https://docs.google.com/spreadsheets/d/1NJJh621NvD2oPv99Qi7ol8usoU0AS5esArlqH0eBb0c/edit?usp=sharing\n\n**Equipment borrowing form:** https://docs.google.com/forms/d/1hpSJ9LOhGadIS-lOrPhlSDbPh38I3GRfZHs4MQJ2Ycw/edit?usp=sharing",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+    await ctx.send(embed = embed)
+
+
+@_drones.command(aliases = ["lessons", "lesson", "Lessons", "Lesson"])
+async def _drones_lessons(ctx):
+    author_name = ctx.author.display_name
+    embed = discord.Embed(
+        title = "",
+        description = "",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+    await ctx.send(embed = embed)
+
+
+@_drones.command(aliases = ["schedule", "Schedule"])
+async def _drones_schedule(ctx):
+    author_name = ctx.author.display_name
+    embed = discord.Embed(
+        title = "",
+        description = "",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {author_name}")
+    await ctx.send(embed = embed)
+
+'''START OF DRONES ROBOTICS COMMANDS'''
 
 '''START OF MUSIC AND VOICE CHANNEL RELATED COMMANDS'''
 
@@ -1403,6 +1457,17 @@ async def _soundboard_wubba(ctx):
     print("\nPlayed wubba sound effect\n")
     vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/wubba.mp3"))
+    vcvoice.source = discord.PCMVolumeTransformer(vcvoice.source)
+    vcvoice.source.value = 0.05
+
+
+#SB ANIME THIGHS
+@_soundboard.command(aliases = ["animethighs", "Animethighs"])
+async def _soundboard_animethighs(ctx):
+    await ctx.reply("Playing **anime thighs** sound effect from soundboard")
+    print("\nPlayed animethighs sound effect\n")
+    vcvoice = discord.utils.get(client.voice_clients, guild = ctx.guild)
+    vcvoice.play(discord.FFmpegPCMAudio("soundboard/animethighs.mp3"))
     vcvoice.source = discord.PCMVolumeTransformer(vcvoice.source)
     vcvoice.source.value = 0.05
 
