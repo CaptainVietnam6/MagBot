@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "CV6sPlaygroundBot"
-version = "0.1.0"
-description = "This bot is CaptainVietnam6 (Kiet)'s flagship discord bot and is intended for the CV6's Playground Server"
+name = "MagmaBot"
+version = "1.0.0"
+description = "This bot is CaptainVietnam6 (Kiet)'s flagship discord bot and is intended for the Team Magma Robotics Discord Server"
 authors = ["Kiet Pham <kiet.riley2005@gmail.com>"]
 
 [tool.poetry.dependencies]

