@@ -52,7 +52,7 @@ import socket as sct
 
 #imports from other files
 from keep_alive import keep_alive
-from BOT_TOKEN import BOT_TOKEN
+BOT_TOKEN = os.environ["BOT_TOKEN_HIDDEN"]
 bot_email_password = os.environ['bot_email_password']
 discord_invite_link = os.environ['discord_inv_link']
 
