@@ -68,9 +68,9 @@ intents = discord.Intents().all()
 
 
 #PREFIX THE BOT USES
-bot_prefixes = ["mag ", "Mag ", "MAG ", "magma ", "Magma ", "mag", "Mag", "MAG", "magma", "Magma", "/", "m! ", "M! ", "m!", "M!"]
-client = commands.Bot(command_prefix = bot_prefixes, intents = intents)
-client.owner_ids = [597621743070216203, 467451098735837186] 
+bot_prefixes = ["mag ", "magma ", "mag", "magma", "/", "m! ", "m!"]
+client = commands.Bot(case_insensitive = False, command_prefix = bot_prefixes, intents = intents)
+client.owner_ids = [597621743070216203, 467451098735837186]
 
 
 #REMOVES DEFAULT HELP COMMAND
