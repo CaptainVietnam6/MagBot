@@ -48,6 +48,7 @@ import numpy
 import pathlib
 from pathlib import Path
 import socket as sct
+from matplotlib import pyplot as plt
 
 
 #imports from other files
@@ -122,6 +123,8 @@ async def on_ready():
     #joins vc on ready
     channel = client.get_channel(873093416710463511)
     await channel.connect()
+    channel = client.get_channel(956060021052014622)
+    await channel.connect()
 
 
 #RETURNS BOT'S PING IN MILLISECONDS
@@ -182,7 +185,7 @@ async def on_member_join(member):
     await channel.send(random.choice(welcome_gifs))
     
     #alerts captain in #bot-status that someone joined
-    await channel2.send(f"<@467451098735837186> <@392066726281609228>, someone has joined the server")
+    #await channel2.send(f"<@467451098735837186> <@392066726281609228>, someone has joined the server")
 
 
 #SENDS NOTIFICATION EMAIL
@@ -798,7 +801,7 @@ async def _help_soundboard(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Soundboard related commands list**",
-        description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother fag left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
+        description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
@@ -1203,12 +1206,11 @@ async def _soundboard(ctx):
     author_name = ctx.author.display_name
     embed = discord.Embed(
         title = "**Soundboard commands list**",
-        description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nAnother fag left the chat: **mag sb fleft**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
+        description = "**These are commands that relate to voice channel soundboard features of MagmaBot**\n\nJoin VC: **mag join**\nLeave VC: **mag leave**\nAirhorn: **mag sb airhorn**\nAli-a intro: **mag sb alia**\nBegone thot: **mag sb begonethot**\nDamn son where'd you find this: **mag sb damnson**\nDankstorm: **mag sb dankstorm**\nDeez nuts: **mag sb deeznuts**\nDeja Vu: **mag sb dejavu**\nLook at this dude: **mag sb dis_dude**\nFart: **mag sb fart**\nHah gaaayyy: **mag sb hahgay**\nIt's called hentai and it's art: **mag sb henart**\nIlluminati song: **mag sb illuminati**\nBitch Lasagna: **mag sb lasagna**\nLoser: **mag sb loser**\nNoob: **mag sb noob**\nOof sound: **mag sb oof**\nPickle Rick: **mag sb picklerick**\nNice: **mag sb nice**\nWhy don't we just relax and turn on the radio: **mag sb radio**\nRick roll: **mag sb rickroll**\nThis is sparta: **mag sb sparta**\nTitanic flute fail: **mag sb titanic**\nGTA V Wasted: **mag sb wasted**\nWide Putin: **mag wideputin**\nWubba lubba dub dub: **mag sb wubba**\n",
         color = bot_color
     )
     embed.set_footer(text = f"Requested by {author_name}")
     await ctx.send(embed = embed)
-
 
 #SB AIRHORN 
 @_soundboard.command(aliases = ["airhorn", "Airhorn"])
@@ -1290,7 +1292,7 @@ async def _soundboard_this_dude(ctx):
     vcvoice.source = discord.PCMVolumeTransformer(vcvoice.source)
     vcvoice.source.value = 0.05
 
-#SB ANOTHER FAG LEFT THE CHAT
+#SB ANOTHER F LEFT THE CHAT
 @_soundboard.command(aliases = ["f_left", "fleft", "F_left", "Fleft"])
 async def _soundboard_f_left(ctx):
     await ctx.reply("Playing **f_left** sound effect from soundboard")
@@ -1480,6 +1482,7 @@ async def _soundboard_animethighs(ctx):
     vcvoice.play(discord.FFmpegPCMAudio("soundboard/animethighs.mp3"))
     vcvoice.source = discord.PCMVolumeTransformer(vcvoice.source)
     vcvoice.source.value = 0.05
+
 
 
 '''END OF VOICE CHANNEL SOUNDBOARD COMMANDS'''
@@ -2144,6 +2147,37 @@ async def _DDoS_attack(ctx, ip, port, hold_time):
         upt_embed.set_footer(text = f"Requested by {ctx.author.display_name}, Attacks sent: {sent}")
         print(f"Sent %s packet to %s throught port:%s"%(sent,ip,port))
         await ctx.reply(embed = embed).edit(upt_embed)
+
+
+#COLLATZ CONJECTURE CALCULATOR
+@client.command(aliases = ["collatzconjecture", "collatz", "3n+1"])
+async def _collatz_conjecture(ctx, n_value):
+    if int(n_value) <= 0:
+        ctx.reply("N value must me greater than 0 for calculator to work")
+    elif int(n_value) > 0:
+        step_value = int(n_value)
+        step_count = 0
+        cycle_list = []
+        value_list = []
+        while step_value != 1:
+            cycle_list.append(step_count)
+            value_list.append(step_value)
+            if (step_value % 2) == 0: #if num is even
+                step_value = round(step_value / 2)
+            else: #if value is odd
+                step_value = round((step_value * 3) + 1)
+            step_count += 1
+        cycle_list.append(step_count + round(step_count / 10))
+        value_list.append(step_value)
+    
+        plt.plot(cycle_list, value_list)
+        plt.xlabel("Cycle num")
+        plt.ylabel("Value")
+        plt.savefig("collatz_output.png")
+        plt.clf()
+        shutil.move("/home/runner/MagmaBot/collatz_output.png", "/home/runner/MagmaBot/generated_files/collatz_output.png")
+        await ctx.reply(f"The value **{n_value}** takes **{step_count} steps** to come back to 1\nThis calculator is based on the **Collatz Conjecture**, also known as the **3n+1 conjecture**\nWikipedia article here: <https://en.wikipedia.org/wiki/Collatz_conjecture>", file = discord.File(rf"/home/runner/MagmaBot/generated_files/collatz_output.png"))
+        os.remove("/home/runner/MagmaBot/generated_files/collatz_output.png")
 
 
 #BELOW HERE IS THE ALWAYS ACTIVE CLIENT.LISTEN AND ON_MESSAGE COMMANDS
